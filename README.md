@@ -25,7 +25,13 @@ npx prisma db push
 npx prisma generate
 ```
 
-5. Start the API:
+5. Import the legacy frontend JSON data and sample records:
+
+```powershell
+npm run db:seed
+```
+
+6. Start the API:
 
 ```powershell
 npm run start:dev
@@ -57,6 +63,8 @@ Authorization: Bearer <accessToken>
 - `POST /products`
 - `GET /products`
 - `GET /products/:id`
+- `POST /products/confirm-bought`
+- `POST /products/confirm-sold`
 - `POST /seller-reviews`
 - `GET /seller-reviews/:sellerId`
 - `POST /product-reviews`
@@ -65,3 +73,18 @@ Authorization: Bearer <accessToken>
 ## Validation And Errors
 
 DTOs use `class-validator`, and a global validation pipe strips unknown fields. A global exception filter returns consistent JSON error responses.
+
+## Tests
+
+```powershell
+npm test -- --runInBand
+```
+
+## Marketplace Rules
+
+- Sellers create seller profiles and can add products only for seller profiles they own.
+- Buyers and sellers meet in person; no payment is recorded.
+- A buyer confirms they got the product with `POST /products/confirm-bought`.
+- The seller confirms they sold the product with `POST /products/confirm-sold`.
+- Product and seller reviews are accepted only after both confirmations exist.
+- One review per user per product and one review per user per seller are enforced by Prisma unique constraints.
