@@ -182,6 +182,27 @@ npm run build
 npm test -- --runInBand
 ```
 
+## Render Deployment
+
+Set these environment variables in Render:
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/neondb?sslmode=require"
+JWT_SECRET="replace-with-a-secure-secret"
+PORT=3001
+FRONTEND_ORIGIN="https://your-frontend-domain"
+```
+
+Use these commands:
+
+```powershell
+npm install
+npm run build
+npm run start:prod
+```
+
+`npm run build` automatically runs `prisma generate` first. This is required because the Prisma client is generated into `generated/prisma`, which is ignored by git and recreated during deployment.
+
 ## Troubleshooting
 
 If port `3001` is already in use:
