@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String          @id @default(uuid())
+  email          String?         @unique
+  phone          String?         @unique
+  name           String?
+  createdAt      DateTime        @default(now())
+  sellers        Seller[]
+  purchases      Purchase[]
+  sellerReviews  SellerReview[]
+  productReviews ProductReview[]
+}
+
+model Seller {
+  id        String         @id @default(uuid())
+  userId    String
+  name      String
+  location  String         @default("")
+  bio       String         @default("")
+  avatarUrl String         @default("")
+  latitude  Float
+  longitude Float
+  createdAt DateTime       @default(now())
+  user      User           @relation(fields: [userId], references: [id])
+  products  Product[]
+  reviews   SellerReview[]
+
+  @@index([userId])
+}
+
+model Product {
+  id                 String          @id @default(uuid())
+  sellerId           String
+  name               String
+  title              String
+  description        String          @default("")
+  imageUrl           String          @default("")
+  images             String[]        @default([])
+  videoUrl           String          @default("")
+  videoStory         String          @default("")
+  currentPrice       Float           @default(0)
+  previousPrice      Float           @default(0)
+  discountPercentage Int             @default(0)
+  condition          String          @default("Used")
+  location           String          @default("")
+  category           String          @default("Miscellaneous")
+  latitude           Float
+  longitude          Float
+  createdAt          DateTime        @default(now())
+  seller             Seller          @relation(fields: [sellerId], references: [id])
+  purchases          Purchase[]
+  reviews            ProductReview[]
+
+  @@index([sellerId])
+}
+
+model Purchase {
+  id                String    @id @default(uuid())
+  productId         String
+  buyerId           String
+  sellerId          String
+  buyerConfirmedAt  DateTime?
+  sellerConfirmedAt DateTime?
+  createdAt         DateTime  @default(now())
+  product           Product   @relation(fields: [productId], references: [id])
+  buyer             User      @relation(fields: [buyerId], references: [id])
+
+  @@unique([productId, buyerId])
+  @@index([productId])
+  @@index([buyerId])
+  @@index([sellerId])
+}
+
+model SellerReview {
+  id        String   @id @default(uuid())
+  userId    String
+  sellerId  String
+  productId String?
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  seller    Seller   @relation(fields: [sellerId], references: [id])
+
+  @@unique([userId, sellerId])
+  @@index([sellerId])
+}
+
+model ProductReview {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  sellerId  String?
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+  @@index([productId])
+}

@@ -1,0 +1,103 @@
+import { PrismaService } from '../../prisma/prisma.service';
+import { CreateSellerDto } from './dto/create-seller.dto';
+export declare class SellersService {
+    private readonly prisma;
+    constructor(prisma: PrismaService);
+    create(userId: string, createSellerDto: CreateSellerDto): import("../../../generated/prisma/models").Prisma__SellerClient<{
+        user: {
+            id: string;
+            email: string | null;
+            phone: string | null;
+            name: string | null;
+            createdAt: Date;
+        };
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        userId: string;
+        location: string;
+        bio: string;
+        avatarUrl: string;
+        latitude: number;
+        longitude: number;
+    }, never, import("@prisma/client/runtime/client").DefaultArgs, {
+        omit: import("../../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
+    }>;
+    findAll(): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<({
+        user: {
+            id: string;
+            email: string | null;
+            phone: string | null;
+            name: string | null;
+            createdAt: Date;
+        };
+        reviews: {
+            id: string;
+            createdAt: Date;
+            userId: string;
+            sellerId: string;
+            productId: string | null;
+            rating: number;
+            comment: string | null;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        userId: string;
+        location: string;
+        bio: string;
+        avatarUrl: string;
+        latitude: number;
+        longitude: number;
+    })[]>;
+    findById(id: string): Promise<{
+        user: {
+            id: string;
+            email: string | null;
+            phone: string | null;
+            name: string | null;
+            createdAt: Date;
+        };
+        products: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            location: string;
+            latitude: number;
+            longitude: number;
+            sellerId: string;
+            title: string;
+            description: string;
+            imageUrl: string;
+            images: string[];
+            videoUrl: string;
+            videoStory: string;
+            currentPrice: number;
+            previousPrice: number;
+            discountPercentage: number;
+            condition: string;
+            category: string;
+        }[];
+        reviews: {
+            id: string;
+            createdAt: Date;
+            userId: string;
+            sellerId: string;
+            productId: string | null;
+            rating: number;
+            comment: string | null;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        userId: string;
+        location: string;
+        bio: string;
+        avatarUrl: string;
+        latitude: number;
+        longitude: number;
+    }>;
+}
