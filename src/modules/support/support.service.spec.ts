@@ -93,6 +93,7 @@ describe('SupportService', () => {
       prisma as never,
       { send: jest.fn().mockRejectedValue(new Error('mail down')) } as never,
     );
+    jest.spyOn((service as any).logger, 'error').mockImplementation(() => undefined);
 
     await expect(service.create(undefined, dto)).resolves.toEqual(
       expect.objectContaining({ id: 'ticket-1' }),
