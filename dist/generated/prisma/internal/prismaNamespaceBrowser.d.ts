@@ -19,6 +19,7 @@ export declare const ModelName: {
     readonly SellerReview: "SellerReview";
     readonly ProductReview: "ProductReview";
     readonly BuyerReview: "BuyerReview";
+    readonly SupportTicket: "SupportTicket";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -122,6 +123,23 @@ export declare const BuyerReviewScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type BuyerReviewScalarFieldEnum = (typeof BuyerReviewScalarFieldEnum)[keyof typeof BuyerReviewScalarFieldEnum];
+export declare const SupportTicketScalarFieldEnum: {
+    readonly id: "id";
+    readonly subject: "subject";
+    readonly description: "description";
+    readonly category: "category";
+    readonly email: "email";
+    readonly source: "source";
+    readonly deviceInfo: "deviceInfo";
+    readonly appVersion: "appVersion";
+    readonly screenshotUrl: "screenshotUrl";
+    readonly productId: "productId";
+    readonly userId: "userId";
+    readonly status: "status";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

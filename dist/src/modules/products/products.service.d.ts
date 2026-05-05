@@ -110,6 +110,15 @@ export declare class ProductsService {
         sellerMarkedSoldAt: Date | null;
     })[]>;
     findById(id: string): Promise<{
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         seller: {
             id: string;
             name: string;
@@ -121,15 +130,6 @@ export declare class ProductsService {
             latitude: number;
             longitude: number;
         };
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         reviews: {
             id: string;
             createdAt: Date;
@@ -221,6 +221,15 @@ export declare class ProductsService {
         sellerConfirmedAt: Date | null;
     }>;
     confirmSold(userId: string, confirmProductDto: ConfirmProductDto): Promise<{
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         seller: {
             id: string;
             name: string;
@@ -232,15 +241,6 @@ export declare class ProductsService {
             latitude: number;
             longitude: number;
         };
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         reviews: {
             id: string;
             createdAt: Date;

@@ -114,7 +114,7 @@ export declare class ReviewsService {
             category: string;
             sellerMarkedSoldAt: Date | null;
         };
-        reviewer: {
+        buyer: {
             id: string;
             email: string | null;
             phone: string | null;
@@ -122,7 +122,7 @@ export declare class ReviewsService {
             avatarUrl: string | null;
             createdAt: Date;
         };
-        buyer: {
+        reviewer: {
             id: string;
             email: string | null;
             phone: string | null;

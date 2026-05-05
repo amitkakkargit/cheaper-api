@@ -116,6 +116,15 @@ export declare class ProductsController {
         message: string;
     }>;
     findOne(id: string): Promise<{
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         seller: {
             id: string;
             name: string;
@@ -127,15 +136,6 @@ export declare class ProductsController {
             latitude: number;
             longitude: number;
         };
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         reviews: {
             id: string;
             createdAt: Date;
@@ -245,6 +245,15 @@ export declare class ProductsController {
         sellerConfirmedAt: Date | null;
     }>;
     confirmSold(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         seller: {
             id: string;
             name: string;
@@ -256,15 +265,6 @@ export declare class ProductsController {
             latitude: number;
             longitude: number;
         };
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         reviews: {
             id: string;
             createdAt: Date;
@@ -296,6 +296,15 @@ export declare class ProductsController {
         sellerMarkedSoldAt: Date | null;
     }>;
     markSold(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         seller: {
             id: string;
             name: string;
@@ -307,15 +316,6 @@ export declare class ProductsController {
             latitude: number;
             longitude: number;
         };
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         reviews: {
             id: string;
             createdAt: Date;

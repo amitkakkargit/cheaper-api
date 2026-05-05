@@ -165,6 +165,7 @@ export declare const ModelName: {
     readonly SellerReview: "SellerReview";
     readonly ProductReview: "ProductReview";
     readonly BuyerReview: "BuyerReview";
+    readonly SupportTicket: "SupportTicket";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -177,7 +178,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "otpCode" | "seller" | "product" | "purchase" | "sellerReview" | "productReview" | "buyerReview";
+        modelProps: "user" | "otpCode" | "seller" | "product" | "purchase" | "sellerReview" | "productReview" | "buyerReview" | "supportTicket";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -773,6 +774,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        SupportTicket: {
+            payload: Prisma.$SupportTicketPayload<ExtArgs>;
+            fields: Prisma.SupportTicketFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.SupportTicketFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.SupportTicketFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                findFirst: {
+                    args: Prisma.SupportTicketFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.SupportTicketFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                findMany: {
+                    args: Prisma.SupportTicketFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>[];
+                };
+                create: {
+                    args: Prisma.SupportTicketCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                createMany: {
+                    args: Prisma.SupportTicketCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.SupportTicketCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>[];
+                };
+                delete: {
+                    args: Prisma.SupportTicketDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                update: {
+                    args: Prisma.SupportTicketUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.SupportTicketDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.SupportTicketUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.SupportTicketUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>[];
+                };
+                upsert: {
+                    args: Prisma.SupportTicketUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>;
+                };
+                aggregate: {
+                    args: Prisma.SupportTicketAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateSupportTicket>;
+                };
+                groupBy: {
+                    args: Prisma.SupportTicketGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.SupportTicketGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.SupportTicketCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.SupportTicketCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -898,6 +973,23 @@ export declare const BuyerReviewScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type BuyerReviewScalarFieldEnum = (typeof BuyerReviewScalarFieldEnum)[keyof typeof BuyerReviewScalarFieldEnum];
+export declare const SupportTicketScalarFieldEnum: {
+    readonly id: "id";
+    readonly subject: "subject";
+    readonly description: "description";
+    readonly category: "category";
+    readonly email: "email";
+    readonly source: "source";
+    readonly deviceInfo: "deviceInfo";
+    readonly appVersion: "appVersion";
+    readonly screenshotUrl: "screenshotUrl";
+    readonly productId: "productId";
+    readonly userId: "userId";
+    readonly status: "status";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -954,6 +1046,7 @@ export type GlobalOmitConfig = {
     sellerReview?: Prisma.SellerReviewOmit;
     productReview?: Prisma.ProductReviewOmit;
     buyerReview?: Prisma.BuyerReviewOmit;
+    supportTicket?: Prisma.SupportTicketOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

@@ -244,6 +244,7 @@ export type ProductWhereInput = {
     purchases?: Prisma.PurchaseListRelationFilter;
     reviews?: Prisma.ProductReviewListRelationFilter;
     buyerReviews?: Prisma.BuyerReviewListRelationFilter;
+    supportTickets?: Prisma.SupportTicketListRelationFilter;
 };
 export type ProductOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -269,6 +270,7 @@ export type ProductOrderByWithRelationInput = {
     purchases?: Prisma.PurchaseOrderByRelationAggregateInput;
     reviews?: Prisma.ProductReviewOrderByRelationAggregateInput;
     buyerReviews?: Prisma.BuyerReviewOrderByRelationAggregateInput;
+    supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput;
 };
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -297,6 +299,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
     purchases?: Prisma.PurchaseListRelationFilter;
     reviews?: Prisma.ProductReviewListRelationFilter;
     buyerReviews?: Prisma.BuyerReviewListRelationFilter;
+    supportTickets?: Prisma.SupportTicketListRelationFilter;
 }, "id">;
 export type ProductOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -371,6 +374,7 @@ export type ProductCreateInput = {
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateInput = {
     id?: string;
@@ -395,6 +399,7 @@ export type ProductUncheckedCreateInput = {
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -419,6 +424,7 @@ export type ProductUpdateInput = {
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -443,6 +449,7 @@ export type ProductUncheckedUpdateInput = {
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateManyInput = {
     id?: string;
@@ -600,6 +607,10 @@ export type ProductScalarRelationFilter = {
     is?: Prisma.ProductWhereInput;
     isNot?: Prisma.ProductWhereInput;
 };
+export type ProductNullableScalarRelationFilter = {
+    is?: Prisma.ProductWhereInput | null;
+    isNot?: Prisma.ProductWhereInput | null;
+};
 export type ProductCreateNestedManyWithoutSellerInput = {
     create?: Prisma.XOR<Prisma.ProductCreateWithoutSellerInput, Prisma.ProductUncheckedCreateWithoutSellerInput> | Prisma.ProductCreateWithoutSellerInput[] | Prisma.ProductUncheckedCreateWithoutSellerInput[];
     connectOrCreate?: Prisma.ProductCreateOrConnectWithoutSellerInput | Prisma.ProductCreateOrConnectWithoutSellerInput[];
@@ -688,6 +699,20 @@ export type ProductUpdateOneRequiredWithoutBuyerReviewsNestedInput = {
     connect?: Prisma.ProductWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutBuyerReviewsInput, Prisma.ProductUpdateWithoutBuyerReviewsInput>, Prisma.ProductUncheckedUpdateWithoutBuyerReviewsInput>;
 };
+export type ProductCreateNestedOneWithoutSupportTicketsInput = {
+    create?: Prisma.XOR<Prisma.ProductCreateWithoutSupportTicketsInput, Prisma.ProductUncheckedCreateWithoutSupportTicketsInput>;
+    connectOrCreate?: Prisma.ProductCreateOrConnectWithoutSupportTicketsInput;
+    connect?: Prisma.ProductWhereUniqueInput;
+};
+export type ProductUpdateOneWithoutSupportTicketsNestedInput = {
+    create?: Prisma.XOR<Prisma.ProductCreateWithoutSupportTicketsInput, Prisma.ProductUncheckedCreateWithoutSupportTicketsInput>;
+    connectOrCreate?: Prisma.ProductCreateOrConnectWithoutSupportTicketsInput;
+    upsert?: Prisma.ProductUpsertWithoutSupportTicketsInput;
+    disconnect?: Prisma.ProductWhereInput | boolean;
+    delete?: Prisma.ProductWhereInput | boolean;
+    connect?: Prisma.ProductWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutSupportTicketsInput, Prisma.ProductUpdateWithoutSupportTicketsInput>, Prisma.ProductUncheckedUpdateWithoutSupportTicketsInput>;
+};
 export type ProductCreateWithoutSellerInput = {
     id?: string;
     name: string;
@@ -710,6 +735,7 @@ export type ProductCreateWithoutSellerInput = {
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutSellerInput = {
     id?: string;
@@ -733,6 +759,7 @@ export type ProductUncheckedCreateWithoutSellerInput = {
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutSellerInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -801,6 +828,7 @@ export type ProductCreateWithoutPurchasesInput = {
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutPurchasesInput = {
     id?: string;
@@ -824,6 +852,7 @@ export type ProductUncheckedCreateWithoutPurchasesInput = {
     sellerMarkedSoldAt?: Date | string | null;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutPurchasesInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -860,6 +889,7 @@ export type ProductUpdateWithoutPurchasesInput = {
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutPurchasesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -883,6 +913,7 @@ export type ProductUncheckedUpdateWithoutPurchasesInput = {
     sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateWithoutReviewsInput = {
     id?: string;
@@ -906,6 +937,7 @@ export type ProductCreateWithoutReviewsInput = {
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutReviewsInput = {
     id?: string;
@@ -929,6 +961,7 @@ export type ProductUncheckedCreateWithoutReviewsInput = {
     sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutReviewsInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -965,6 +998,7 @@ export type ProductUpdateWithoutReviewsInput = {
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -988,6 +1022,7 @@ export type ProductUncheckedUpdateWithoutReviewsInput = {
     sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateWithoutBuyerReviewsInput = {
     id?: string;
@@ -1011,6 +1046,7 @@ export type ProductCreateWithoutBuyerReviewsInput = {
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutBuyerReviewsInput = {
     id?: string;
@@ -1034,6 +1070,7 @@ export type ProductUncheckedCreateWithoutBuyerReviewsInput = {
     sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+    supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutBuyerReviewsInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -1070,6 +1107,7 @@ export type ProductUpdateWithoutBuyerReviewsInput = {
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutBuyerReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1093,6 +1131,116 @@ export type ProductUncheckedUpdateWithoutBuyerReviewsInput = {
     sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutProductNestedInput;
+};
+export type ProductCreateWithoutSupportTicketsInput = {
+    id?: string;
+    name: string;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    images?: Prisma.ProductCreateimagesInput | string[];
+    videoUrl?: string;
+    videoStory?: string;
+    currentPrice?: number;
+    previousPrice?: number;
+    discountPercentage?: number;
+    condition?: string;
+    location?: string;
+    category?: string;
+    latitude: number;
+    longitude: number;
+    createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
+    seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
+    purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
+    reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
+};
+export type ProductUncheckedCreateWithoutSupportTicketsInput = {
+    id?: string;
+    sellerId: string;
+    name: string;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    images?: Prisma.ProductCreateimagesInput | string[];
+    videoUrl?: string;
+    videoStory?: string;
+    currentPrice?: number;
+    previousPrice?: number;
+    discountPercentage?: number;
+    condition?: string;
+    location?: string;
+    category?: string;
+    latitude: number;
+    longitude: number;
+    createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
+    purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
+    reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
+};
+export type ProductCreateOrConnectWithoutSupportTicketsInput = {
+    where: Prisma.ProductWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ProductCreateWithoutSupportTicketsInput, Prisma.ProductUncheckedCreateWithoutSupportTicketsInput>;
+};
+export type ProductUpsertWithoutSupportTicketsInput = {
+    update: Prisma.XOR<Prisma.ProductUpdateWithoutSupportTicketsInput, Prisma.ProductUncheckedUpdateWithoutSupportTicketsInput>;
+    create: Prisma.XOR<Prisma.ProductCreateWithoutSupportTicketsInput, Prisma.ProductUncheckedCreateWithoutSupportTicketsInput>;
+    where?: Prisma.ProductWhereInput;
+};
+export type ProductUpdateToOneWithWhereWithoutSupportTicketsInput = {
+    where?: Prisma.ProductWhereInput;
+    data: Prisma.XOR<Prisma.ProductUpdateWithoutSupportTicketsInput, Prisma.ProductUncheckedUpdateWithoutSupportTicketsInput>;
+};
+export type ProductUpdateWithoutSupportTicketsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    images?: Prisma.ProductUpdateimagesInput | string[];
+    videoUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    videoStory?: Prisma.StringFieldUpdateOperationsInput | string;
+    currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    previousPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number;
+    condition?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
+    purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
+    reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
+};
+export type ProductUncheckedUpdateWithoutSupportTicketsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    images?: Prisma.ProductUpdateimagesInput | string[];
+    videoUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    videoStory?: Prisma.StringFieldUpdateOperationsInput | string;
+    currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    previousPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number;
+    condition?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
+    reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateManySellerInput = {
     id?: string;
@@ -1136,6 +1284,7 @@ export type ProductUpdateWithoutSellerInput = {
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1159,6 +1308,7 @@ export type ProductUncheckedUpdateWithoutSellerInput = {
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
     buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
+    supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateManyWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1184,11 +1334,13 @@ export type ProductCountOutputType = {
     purchases: number;
     reviews: number;
     buyerReviews: number;
+    supportTickets: number;
 };
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     purchases?: boolean | ProductCountOutputTypeCountPurchasesArgs;
     reviews?: boolean | ProductCountOutputTypeCountReviewsArgs;
     buyerReviews?: boolean | ProductCountOutputTypeCountBuyerReviewsArgs;
+    supportTickets?: boolean | ProductCountOutputTypeCountSupportTicketsArgs;
 };
 export type ProductCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.ProductCountOutputTypeSelect<ExtArgs> | null;
@@ -1201,6 +1353,9 @@ export type ProductCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types
 };
 export type ProductCountOutputTypeCountBuyerReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.BuyerReviewWhereInput;
+};
+export type ProductCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.SupportTicketWhereInput;
 };
 export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -1226,6 +1381,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     purchases?: boolean | Prisma.Product$purchasesArgs<ExtArgs>;
     reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>;
     buyerReviews?: boolean | Prisma.Product$buyerReviewsArgs<ExtArgs>;
+    supportTickets?: boolean | Prisma.Product$supportTicketsArgs<ExtArgs>;
     _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["product"]>;
 export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1299,6 +1455,7 @@ export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
     purchases?: boolean | Prisma.Product$purchasesArgs<ExtArgs>;
     reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>;
     buyerReviews?: boolean | Prisma.Product$buyerReviewsArgs<ExtArgs>;
+    supportTickets?: boolean | Prisma.Product$supportTicketsArgs<ExtArgs>;
     _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1314,6 +1471,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         purchases: Prisma.$PurchasePayload<ExtArgs>[];
         reviews: Prisma.$ProductReviewPayload<ExtArgs>[];
         buyerReviews: Prisma.$BuyerReviewPayload<ExtArgs>[];
+        supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1391,6 +1549,7 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
     purchases<T extends Prisma.Product$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     reviews<T extends Prisma.Product$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     buyerReviews<T extends Prisma.Product$buyerReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$buyerReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BuyerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    supportTickets<T extends Prisma.Product$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -1548,6 +1707,17 @@ export type Product$buyerReviewsArgs<ExtArgs extends runtime.Types.Extensions.In
     take?: number;
     skip?: number;
     distinct?: Prisma.BuyerReviewScalarFieldEnum | Prisma.BuyerReviewScalarFieldEnum[];
+};
+export type Product$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.SupportTicketSelect<ExtArgs> | null;
+    omit?: Prisma.SupportTicketOmit<ExtArgs> | null;
+    include?: Prisma.SupportTicketInclude<ExtArgs> | null;
+    where?: Prisma.SupportTicketWhereInput;
+    orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[];
+    cursor?: Prisma.SupportTicketWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[];
 };
 export type ProductDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.ProductSelect<ExtArgs> | null;
