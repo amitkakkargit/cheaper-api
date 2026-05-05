@@ -18,8 +18,8 @@ let ReviewsService = class ReviewsService {
         this.prisma = prisma;
     }
     async createSellerReview(userId, createSellerReviewDto) {
-        await this.ensureSellerCanBeReviewed(userId, createSellerReviewDto.sellerId);
-        await this.ensureCompletedPurchase(userId, createSellerReviewDto.productId, createSellerReviewDto.sellerId);
+        this.validateHalfStepRating(createSellerReviewDto.rating);
+        await this.validateBuyerReviewEligibility(userId, createSellerReviewDto.productId, createSellerReviewDto.sellerId, 'seller');
         try {
             return await this.prisma.sellerReview.create({
                 data: {
@@ -36,20 +36,28 @@ let ReviewsService = class ReviewsService {
             this.handleUniqueReviewError(error, 'User has already reviewed this seller');
         }
     }
-    findSellerReviews(sellerId, userId) {
+    findSellerReviews(sellerId) {
         return this.prisma.sellerReview.findMany({
             where: { sellerId },
-            include: {
-                user: true,
+            select: {
+                id: true,
+                rating: true,
+                comment: true,
+                createdAt: true,
+                user: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
             orderBy: {
                 createdAt: 'desc',
             },
-        }).then(reviews => this.filterVisibleSellerReviews(reviews, sellerId, userId));
+        });
     }
     async createProductReview(userId, createProductReviewDto) {
-        await this.ensureProductCanBeReviewed(userId, createProductReviewDto.productId, createProductReviewDto.sellerId);
-        await this.ensureCompletedPurchase(userId, createProductReviewDto.productId, createProductReviewDto.sellerId);
+        this.validateHalfStepRating(createProductReviewDto.rating);
+        await this.validateBuyerReviewEligibility(userId, createProductReviewDto.productId, createProductReviewDto.sellerId, 'product');
         try {
             return await this.prisma.productReview.create({
                 data: {
@@ -66,35 +74,71 @@ let ReviewsService = class ReviewsService {
             this.handleUniqueReviewError(error, 'User has already reviewed this product');
         }
     }
-    findProductReviews(productId, userId) {
+    findProductReviews(productId) {
         return this.prisma.productReview.findMany({
             where: { productId },
-            include: {
-                user: true,
+            select: {
+                id: true,
+                rating: true,
+                comment: true,
+                createdAt: true,
+                user: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
             orderBy: {
                 createdAt: 'desc',
             },
-        }).then(reviews => this.filterVisibleReviews(reviews, productId, userId));
-    }
-    async ensureSellerCanBeReviewed(userId, sellerId) {
-        const seller = await this.prisma.seller.findUnique({
-            where: { id: sellerId },
-            select: { id: true, userId: true },
         });
-        if (!seller) {
-            throw new common_1.NotFoundException('Seller not found');
+    }
+    async createBuyerReview(reviewerId, createBuyerReviewDto) {
+        this.validateHalfStepRating(createBuyerReviewDto.rating);
+        await this.validateSellerReviewEligibility(reviewerId, createBuyerReviewDto.productId, createBuyerReviewDto.buyerId);
+        try {
+            return await this.prisma.buyerReview.create({
+                data: {
+                    reviewerId,
+                    ...createBuyerReviewDto,
+                },
+                include: {
+                    reviewer: true,
+                    buyer: true,
+                    product: true,
+                },
+            });
         }
-        if (seller.userId === userId) {
-            throw new common_1.ForbiddenException('Seller cannot review their own profile');
+        catch (error) {
+            this.handleUniqueReviewError(error, 'Seller has already reviewed this buyer for this product');
         }
     }
-    async ensureProductCanBeReviewed(userId, productId, sellerId) {
+    findBuyerReviews(buyerId) {
+        return this.prisma.buyerReview.findMany({
+            where: { buyerId },
+            select: {
+                id: true,
+                rating: true,
+                comment: true,
+                createdAt: true,
+                reviewer: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+    }
+    async validateBuyerReviewEligibility(userId, productId, sellerId, target) {
         const product = await this.prisma.product.findUnique({
             where: { id: productId },
             select: {
                 id: true,
                 sellerId: true,
+                sellerMarkedSoldAt: true,
                 seller: {
                     select: {
                         userId: true,
@@ -109,10 +153,10 @@ let ReviewsService = class ReviewsService {
             throw new common_1.ConflictException('Product does not belong to this seller');
         }
         if (product.seller.userId === userId) {
-            throw new common_1.ForbiddenException('Seller cannot review their own product');
+            throw new common_1.ForbiddenException(target === 'product'
+                ? 'Seller cannot review their own product'
+                : 'Seller cannot review their own profile');
         }
-    }
-    async ensureCompletedPurchase(userId, productId, sellerId) {
         const purchase = await this.prisma.purchase.findFirst({
             where: {
                 buyerId: userId,
@@ -121,14 +165,46 @@ let ReviewsService = class ReviewsService {
                 buyerConfirmedAt: {
                     not: null,
                 },
-                sellerConfirmedAt: {
+            },
+            select: { id: true },
+        });
+        if (!purchase && !product.sellerMarkedSoldAt) {
+            throw new common_1.ConflictException('Review is not enabled until the seller marks sold or the buyer confirms receipt');
+        }
+    }
+    async validateSellerReviewEligibility(reviewerId, productId, buyerId) {
+        if (reviewerId === buyerId) {
+            throw new common_1.ForbiddenException('Seller cannot review themselves');
+        }
+        const product = await this.prisma.product.findUnique({
+            where: { id: productId },
+            select: {
+                id: true,
+                seller: {
+                    select: {
+                        userId: true,
+                    },
+                },
+            },
+        });
+        if (!product) {
+            throw new common_1.NotFoundException('Product not found');
+        }
+        if (product.seller.userId !== reviewerId) {
+            throw new common_1.ForbiddenException('Only the product seller can review this buyer');
+        }
+        const purchase = await this.prisma.purchase.findFirst({
+            where: {
+                buyerId,
+                productId,
+                buyerConfirmedAt: {
                     not: null,
                 },
             },
             select: { id: true },
         });
         if (!purchase) {
-            throw new common_1.ConflictException('Buyer and seller must confirm the product handoff before review');
+            throw new common_1.ConflictException('Seller can review the buyer only after the buyer confirms receipt');
         }
     }
     handleUniqueReviewError(error, message) {
@@ -138,81 +214,9 @@ let ReviewsService = class ReviewsService {
         }
         throw error;
     }
-    async filterVisibleReviews(reviews, productId, userId) {
-        if (!userId) {
-            const productReviews = await this.prisma.productReview.findMany({
-                where: { productId },
-                select: { userId: true },
-            });
-            const sellerReviews = await this.prisma.sellerReview.findMany({
-                where: { productId: { not: null } },
-                select: { userId: true, productId: true },
-            });
-            const reviewedUserIds = new Set(productReviews.map(r => r.userId));
-            const sellerReviewedUserIds = new Set(sellerReviews.filter(r => r.productId === productId).map(r => r.userId));
-            return reviews.filter(review => reviewedUserIds.has(review.userId) && sellerReviewedUserIds.has(review.userId));
-        }
-        const userSellerIds = await this.prisma.seller.findMany({
-            where: { userId },
-            select: { id: true },
-        });
-        const productSeller = await this.prisma.product.findUnique({
-            where: { id: productId },
-            select: { sellerId: true },
-        });
-        const isProductSeller = productSeller && userSellerIds.some(s => s.id === productSeller.sellerId);
-        if (isProductSeller) {
-            return reviews;
-        }
-        else {
-            const productReviews = await this.prisma.productReview.findMany({
-                where: { productId },
-                select: { userId: true },
-            });
-            const sellerReviews = await this.prisma.sellerReview.findMany({
-                where: { productId: { not: null } },
-                select: { userId: true, productId: true },
-            });
-            const reviewedUserIds = new Set(productReviews.map(r => r.userId));
-            const sellerReviewedUserIds = new Set(sellerReviews.filter(r => r.productId === productId).map(r => r.userId));
-            return reviews.filter(review => review.userId === userId ||
-                (reviewedUserIds.has(review.userId) && sellerReviewedUserIds.has(review.userId)));
-        }
-    }
-    async filterVisibleSellerReviews(reviews, sellerId, userId) {
-        if (!userId) {
-            const sellerReviews = await this.prisma.sellerReview.findMany({
-                where: { sellerId },
-                select: { userId: true, productId: true },
-            });
-            const productReviews = await this.prisma.productReview.findMany({
-                where: { sellerId },
-                select: { userId: true, productId: true },
-            });
-            const reviewedUserIds = new Set(sellerReviews.map(r => r.userId));
-            const buyerReviewedUserIds = new Set(productReviews.map(r => r.userId));
-            return reviews.filter(review => reviewedUserIds.has(review.userId) && buyerReviewedUserIds.has(review.userId));
-        }
-        const userSellerIds = await this.prisma.seller.findMany({
-            where: { userId },
-            select: { id: true },
-        });
-        const isSeller = userSellerIds.some(s => s.id === sellerId);
-        if (isSeller) {
-            const sellerReviews = await this.prisma.sellerReview.findMany({
-                where: { sellerId },
-                select: { userId: true },
-            });
-            const productReviews = await this.prisma.productReview.findMany({
-                where: { sellerId },
-                select: { userId: true },
-            });
-            const reviewedUserIds = new Set(sellerReviews.map(r => r.userId));
-            const buyerReviewedUserIds = new Set(productReviews.map(r => r.userId));
-            return reviews.filter(review => reviewedUserIds.has(review.userId) && buyerReviewedUserIds.has(review.userId));
-        }
-        else {
-            return reviews.filter(review => review.userId === userId || true);
+    validateHalfStepRating(rating) {
+        if (!Number.isFinite(rating) || rating < 1 || rating > 5 || !Number.isInteger(rating * 2)) {
+            throw new common_1.ConflictException('Rating must be between 1 and 5 in 0.5 increments');
         }
     }
 };

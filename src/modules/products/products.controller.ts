@@ -28,6 +28,15 @@ export class ProductsController {
     return this.productsService.findAll(productQueryDto);
   }
 
+  @Get(':id/transaction-status')
+  @UseGuards(JwtAuthGuard)
+  getTransactionStatus(
+    @Param('id') id: string,
+    @CurrentUserPayload() user?: CurrentUser,
+  ) {
+    return this.productsService.getTransactionStatus(id, user?.userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productsService.findById(id);
@@ -42,9 +51,27 @@ export class ProductsController {
     return this.productsService.confirmBought(user.userId, confirmProductDto);
   }
 
+  @Post('mark-received')
+  @UseGuards(JwtAuthGuard)
+  markReceived(
+    @CurrentUserPayload() user: CurrentUser,
+    @Body() confirmProductDto: ConfirmProductDto,
+  ) {
+    return this.productsService.confirmBought(user.userId, confirmProductDto);
+  }
+
   @Post('confirm-sold')
   @UseGuards(JwtAuthGuard)
   confirmSold(
+    @CurrentUserPayload() user: CurrentUser,
+    @Body() confirmProductDto: ConfirmProductDto,
+  ) {
+    return this.productsService.confirmSold(user.userId, confirmProductDto);
+  }
+
+  @Post('mark-sold')
+  @UseGuards(JwtAuthGuard)
+  markSold(
     @CurrentUserPayload() user: CurrentUser,
     @Body() confirmProductDto: ConfirmProductDto,
   ) {

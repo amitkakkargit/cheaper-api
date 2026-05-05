@@ -1,4 +1,6 @@
+import { Prisma } from '../../../generated/prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
+import { CreateBuyerReviewDto } from './dto/create-buyer-review.dto';
 import { CreateProductReviewDto } from './dto/create-product-review.dto';
 import { CreateSellerReviewDto } from './dto/create-seller-review.dto';
 export declare class ReviewsService {
@@ -33,7 +35,15 @@ export declare class ReviewsService {
         rating: number;
         comment: string | null;
     }>;
-    findSellerReviews(sellerId: string, userId?: string): Promise<any[]>;
+    findSellerReviews(sellerId: string): Prisma.PrismaPromise<{
+        id: string;
+        createdAt: Date;
+        rating: number;
+        comment: string | null;
+        user: {
+            name: string | null;
+        };
+    }[]>;
     createProductReview(userId: string, createProductReviewDto: CreateProductReviewDto): Promise<{
         user: {
             id: string;
@@ -62,6 +72,7 @@ export declare class ReviewsService {
             discountPercentage: number;
             condition: string;
             category: string;
+            sellerMarkedSoldAt: Date | null;
         };
     } & {
         id: string;
@@ -72,11 +83,73 @@ export declare class ReviewsService {
         rating: number;
         comment: string | null;
     }>;
-    findProductReviews(productId: string, userId?: string): Promise<any[]>;
-    private ensureSellerCanBeReviewed;
-    private ensureProductCanBeReviewed;
-    private ensureCompletedPurchase;
+    findProductReviews(productId: string): Prisma.PrismaPromise<{
+        id: string;
+        createdAt: Date;
+        rating: number;
+        comment: string | null;
+        user: {
+            name: string | null;
+        };
+    }[]>;
+    createBuyerReview(reviewerId: string, createBuyerReviewDto: CreateBuyerReviewDto): Promise<{
+        product: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            location: string;
+            latitude: number;
+            longitude: number;
+            sellerId: string;
+            title: string;
+            description: string;
+            imageUrl: string;
+            images: string[];
+            videoUrl: string;
+            videoStory: string;
+            currentPrice: number;
+            previousPrice: number;
+            discountPercentage: number;
+            condition: string;
+            category: string;
+            sellerMarkedSoldAt: Date | null;
+        };
+        reviewer: {
+            id: string;
+            email: string | null;
+            phone: string | null;
+            name: string | null;
+            avatarUrl: string | null;
+            createdAt: Date;
+        };
+        buyer: {
+            id: string;
+            email: string | null;
+            phone: string | null;
+            name: string | null;
+            avatarUrl: string | null;
+            createdAt: Date;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        productId: string;
+        buyerId: string;
+        rating: number;
+        comment: string | null;
+        reviewerId: string;
+    }>;
+    findBuyerReviews(buyerId: string): Prisma.PrismaPromise<{
+        id: string;
+        createdAt: Date;
+        rating: number;
+        comment: string | null;
+        reviewer: {
+            name: string | null;
+        };
+    }[]>;
+    validateBuyerReviewEligibility(userId: string, productId: string, sellerId: string, target: 'product' | 'seller'): Promise<void>;
+    validateSellerReviewEligibility(reviewerId: string, productId: string, buyerId: string): Promise<void>;
     private handleUniqueReviewError;
-    private filterVisibleReviews;
-    private filterVisibleSellerReviews;
+    private validateHalfStepRating;
 }

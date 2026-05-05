@@ -5,4 +5,6 @@ export type * from './models/Product';
 export type * from './models/Purchase';
 export type * from './models/SellerReview';
 export type * from './models/ProductReview';
+export type * from './models/BuyerReview';
+export type * from './models/SupportTicket';
 export type * from './commonInputTypes';

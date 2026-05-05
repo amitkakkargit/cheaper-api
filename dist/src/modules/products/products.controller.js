@@ -30,13 +30,22 @@ let ProductsController = class ProductsController {
     findAll(productQueryDto) {
         return this.productsService.findAll(productQueryDto);
     }
+    getTransactionStatus(id, user) {
+        return this.productsService.getTransactionStatus(id, user?.userId);
+    }
     findOne(id) {
         return this.productsService.findById(id);
     }
     confirmBought(user, confirmProductDto) {
         return this.productsService.confirmBought(user.userId, confirmProductDto);
     }
+    markReceived(user, confirmProductDto) {
+        return this.productsService.confirmBought(user.userId, confirmProductDto);
+    }
     confirmSold(user, confirmProductDto) {
+        return this.productsService.confirmSold(user.userId, confirmProductDto);
+    }
+    markSold(user, confirmProductDto) {
         return this.productsService.confirmSold(user.userId, confirmProductDto);
     }
 };
@@ -58,6 +67,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.Get)(':id/transaction-status'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "getTransactionStatus", null);
+__decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -74,6 +92,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "confirmBought", null);
 __decorate([
+    (0, common_1.Post)('mark-received'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, confirm_product_dto_1.ConfirmProductDto]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "markReceived", null);
+__decorate([
     (0, common_1.Post)('confirm-sold'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
@@ -82,6 +109,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, confirm_product_dto_1.ConfirmProductDto]),
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "confirmSold", null);
+__decorate([
+    (0, common_1.Post)('mark-sold'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, confirm_product_dto_1.ConfirmProductDto]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "markSold", null);
 exports.ProductsController = ProductsController = __decorate([
     (0, common_1.Controller)('products'),
     __metadata("design:paramtypes", [products_service_1.ProductsService])

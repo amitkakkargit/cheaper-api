@@ -129,7 +129,7 @@ export type SellerReviewWhereInput = {
     userId?: Prisma.StringFilter<"SellerReview"> | string;
     sellerId?: Prisma.StringFilter<"SellerReview"> | string;
     productId?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
-    rating?: Prisma.IntFilter<"SellerReview"> | number;
+    rating?: Prisma.FloatFilter<"SellerReview"> | number;
     comment?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"SellerReview"> | Date | string;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
@@ -155,7 +155,7 @@ export type SellerReviewWhereUniqueInput = Prisma.AtLeast<{
     userId?: Prisma.StringFilter<"SellerReview"> | string;
     sellerId?: Prisma.StringFilter<"SellerReview"> | string;
     productId?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
-    rating?: Prisma.IntFilter<"SellerReview"> | number;
+    rating?: Prisma.FloatFilter<"SellerReview"> | number;
     comment?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"SellerReview"> | Date | string;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
@@ -183,7 +183,7 @@ export type SellerReviewScalarWhereWithAggregatesInput = {
     userId?: Prisma.StringWithAggregatesFilter<"SellerReview"> | string;
     sellerId?: Prisma.StringWithAggregatesFilter<"SellerReview"> | string;
     productId?: Prisma.StringNullableWithAggregatesFilter<"SellerReview"> | string | null;
-    rating?: Prisma.IntWithAggregatesFilter<"SellerReview"> | number;
+    rating?: Prisma.FloatWithAggregatesFilter<"SellerReview"> | number;
     comment?: Prisma.StringNullableWithAggregatesFilter<"SellerReview"> | string | null;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"SellerReview"> | Date | string;
 };
@@ -208,7 +208,7 @@ export type SellerReviewUncheckedCreateInput = {
 export type SellerReviewUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     user?: Prisma.UserUpdateOneRequiredWithoutSellerReviewsNestedInput;
@@ -219,7 +219,7 @@ export type SellerReviewUncheckedUpdateInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -235,7 +235,7 @@ export type SellerReviewCreateManyInput = {
 export type SellerReviewUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -244,7 +244,7 @@ export type SellerReviewUncheckedUpdateManyInput = {
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -414,7 +414,7 @@ export type SellerReviewScalarWhereInput = {
     userId?: Prisma.StringFilter<"SellerReview"> | string;
     sellerId?: Prisma.StringFilter<"SellerReview"> | string;
     productId?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
-    rating?: Prisma.IntFilter<"SellerReview"> | number;
+    rating?: Prisma.FloatFilter<"SellerReview"> | number;
     comment?: Prisma.StringNullableFilter<"SellerReview"> | string | null;
     createdAt?: Prisma.DateTimeFilter<"SellerReview"> | Date | string;
 };
@@ -466,7 +466,7 @@ export type SellerReviewCreateManyUserInput = {
 export type SellerReviewUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     seller?: Prisma.SellerUpdateOneRequiredWithoutReviewsNestedInput;
@@ -475,7 +475,7 @@ export type SellerReviewUncheckedUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -483,7 +483,7 @@ export type SellerReviewUncheckedUpdateManyWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -498,7 +498,7 @@ export type SellerReviewCreateManySellerInput = {
 export type SellerReviewUpdateWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     user?: Prisma.UserUpdateOneRequiredWithoutSellerReviewsNestedInput;
@@ -507,7 +507,7 @@ export type SellerReviewUncheckedUpdateWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -515,7 +515,7 @@ export type SellerReviewUncheckedUpdateManyWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
     userId?: Prisma.StringFieldUpdateOperationsInput | string;
     productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    rating?: Prisma.IntFieldUpdateOperationsInput | number;
+    rating?: Prisma.FloatFieldUpdateOperationsInput | number;
     comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -651,7 +651,7 @@ export interface SellerReviewFieldRefs {
     readonly userId: Prisma.FieldRef<"SellerReview", 'String'>;
     readonly sellerId: Prisma.FieldRef<"SellerReview", 'String'>;
     readonly productId: Prisma.FieldRef<"SellerReview", 'String'>;
-    readonly rating: Prisma.FieldRef<"SellerReview", 'Int'>;
+    readonly rating: Prisma.FieldRef<"SellerReview", 'Float'>;
     readonly comment: Prisma.FieldRef<"SellerReview", 'String'>;
     readonly createdAt: Prisma.FieldRef<"SellerReview", 'DateTime'>;
 }

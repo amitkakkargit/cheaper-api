@@ -32,6 +32,7 @@ export declare class ProductReviewsController {
             discountPercentage: number;
             condition: string;
             category: string;
+            sellerMarkedSoldAt: Date | null;
         };
     } & {
         id: string;
@@ -42,5 +43,13 @@ export declare class ProductReviewsController {
         rating: number;
         comment: string | null;
     }>;
-    findByProduct(productId: string, user?: CurrentUser): Promise<any[]>;
+    findByProduct(productId: string): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<{
+        id: string;
+        createdAt: Date;
+        rating: number;
+        comment: string | null;
+        user: {
+            name: string | null;
+        };
+    }[]>;
 }

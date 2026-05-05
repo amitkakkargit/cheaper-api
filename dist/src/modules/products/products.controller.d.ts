@@ -46,6 +46,7 @@ export declare class ProductsController {
         discountPercentage: number;
         condition: string;
         category: string;
+        sellerMarkedSoldAt: Date | null;
     }>;
     findAll(productQueryDto: ProductQueryDto): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<({
         seller: {
@@ -97,17 +98,24 @@ export declare class ProductsController {
         discountPercentage: number;
         condition: string;
         category: string;
+        sellerMarkedSoldAt: Date | null;
     })[]>;
+    getTransactionStatus(id: string, user?: CurrentUser): Promise<{
+        productId: string;
+        isSellerOwner: boolean;
+        sellerMarkedSold: boolean;
+        sellerMarkedSoldAt: Date | null;
+        buyerConfirmed: boolean;
+        buyerConfirmedAt: Date | null;
+        buyerIdForSellerReview: string | null;
+        canMarkSold: boolean;
+        canMarkReceived: boolean;
+        canBuyerReviewSeller: boolean;
+        canBuyerReviewProduct: boolean;
+        canSellerReviewBuyer: boolean;
+        message: string;
+    }>;
     findOne(id: string): Promise<{
-        purchases: {
-            id: string;
-            createdAt: Date;
-            sellerId: string;
-            productId: string;
-            buyerId: string;
-            buyerConfirmedAt: Date | null;
-            sellerConfirmedAt: Date | null;
-        }[];
         seller: {
             id: string;
             name: string;
@@ -119,6 +127,15 @@ export declare class ProductsController {
             latitude: number;
             longitude: number;
         };
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
         reviews: {
             id: string;
             createdAt: Date;
@@ -147,6 +164,7 @@ export declare class ProductsController {
         discountPercentage: number;
         condition: string;
         category: string;
+        sellerMarkedSoldAt: Date | null;
     }>;
     confirmBought(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
         product: {
@@ -168,6 +186,7 @@ export declare class ProductsController {
             discountPercentage: number;
             condition: string;
             category: string;
+            sellerMarkedSoldAt: Date | null;
         };
         buyer: {
             id: string;
@@ -186,7 +205,7 @@ export declare class ProductsController {
         buyerConfirmedAt: Date | null;
         sellerConfirmedAt: Date | null;
     }>;
-    confirmSold(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
+    markReceived(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
         product: {
             id: string;
             name: string;
@@ -206,6 +225,7 @@ export declare class ProductsController {
             discountPercentage: number;
             condition: string;
             category: string;
+            sellerMarkedSoldAt: Date | null;
         };
         buyer: {
             id: string;
@@ -223,5 +243,107 @@ export declare class ProductsController {
         buyerId: string;
         buyerConfirmedAt: Date | null;
         sellerConfirmedAt: Date | null;
+    }>;
+    confirmSold(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
+        seller: {
+            id: string;
+            name: string;
+            avatarUrl: string;
+            createdAt: Date;
+            userId: string;
+            location: string;
+            bio: string;
+            latitude: number;
+            longitude: number;
+        };
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
+        reviews: {
+            id: string;
+            createdAt: Date;
+            userId: string;
+            sellerId: string | null;
+            productId: string;
+            rating: number;
+            comment: string | null;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        location: string;
+        latitude: number;
+        longitude: number;
+        sellerId: string;
+        title: string;
+        description: string;
+        imageUrl: string;
+        images: string[];
+        videoUrl: string;
+        videoStory: string;
+        currentPrice: number;
+        previousPrice: number;
+        discountPercentage: number;
+        condition: string;
+        category: string;
+        sellerMarkedSoldAt: Date | null;
+    }>;
+    markSold(user: CurrentUser, confirmProductDto: ConfirmProductDto): Promise<{
+        seller: {
+            id: string;
+            name: string;
+            avatarUrl: string;
+            createdAt: Date;
+            userId: string;
+            location: string;
+            bio: string;
+            latitude: number;
+            longitude: number;
+        };
+        purchases: {
+            id: string;
+            createdAt: Date;
+            sellerId: string;
+            productId: string;
+            buyerId: string;
+            buyerConfirmedAt: Date | null;
+            sellerConfirmedAt: Date | null;
+        }[];
+        reviews: {
+            id: string;
+            createdAt: Date;
+            userId: string;
+            sellerId: string | null;
+            productId: string;
+            rating: number;
+            comment: string | null;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        location: string;
+        latitude: number;
+        longitude: number;
+        sellerId: string;
+        title: string;
+        description: string;
+        imageUrl: string;
+        images: string[];
+        videoUrl: string;
+        videoStory: string;
+        currentPrice: number;
+        previousPrice: number;
+        discountPercentage: number;
+        condition: string;
+        category: string;
+        sellerMarkedSoldAt: Date | null;
     }>;
 }

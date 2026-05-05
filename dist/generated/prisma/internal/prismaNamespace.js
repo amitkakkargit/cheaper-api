@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.OtpCodeScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.BuyerReviewScalarFieldEnum = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.OtpCodeScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = require("@prisma/client/runtime/client");
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
@@ -33,7 +33,8 @@ exports.ModelName = {
     Product: 'Product',
     Purchase: 'Purchase',
     SellerReview: 'SellerReview',
-    ProductReview: 'ProductReview'
+    ProductReview: 'ProductReview',
+    BuyerReview: 'BuyerReview'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -88,7 +89,8 @@ exports.ProductScalarFieldEnum = {
     category: 'category',
     latitude: 'latitude',
     longitude: 'longitude',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    sellerMarkedSoldAt: 'sellerMarkedSoldAt'
 };
 exports.PurchaseScalarFieldEnum = {
     id: 'id',
@@ -113,6 +115,15 @@ exports.ProductReviewScalarFieldEnum = {
     userId: 'userId',
     productId: 'productId',
     sellerId: 'sellerId',
+    rating: 'rating',
+    comment: 'comment',
+    createdAt: 'createdAt'
+};
+exports.BuyerReviewScalarFieldEnum = {
+    id: 'id',
+    reviewerId: 'reviewerId',
+    buyerId: 'buyerId',
+    productId: 'productId',
     rating: 'rating',
     comment: 'comment',
     createdAt: 'createdAt'

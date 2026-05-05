@@ -19,6 +19,9 @@ model User {
   purchases      Purchase[]
   sellerReviews  SellerReview[]
   productReviews ProductReview[]
+  buyerReviewsWritten BuyerReview[] @relation("BuyerReviewReviewer")
+  buyerReviewsReceived BuyerReview[] @relation("BuyerReviewBuyer")
+  supportTickets SupportTicket[]
 }
 
 model OtpCode {
@@ -71,9 +74,12 @@ model Product {
   latitude           Float
   longitude          Float
   createdAt          DateTime        @default(now())
+  sellerMarkedSoldAt DateTime?
   seller             Seller          @relation(fields: [sellerId], references: [id])
   purchases          Purchase[]
   reviews            ProductReview[]
+  buyerReviews       BuyerReview[]
+  supportTickets     SupportTicket[]
 
   @@index([sellerId])
 }
@@ -100,7 +106,7 @@ model SellerReview {
   userId    String
   sellerId  String
   productId String?
-  rating    Int
+  rating    Float
   comment   String?
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
@@ -115,7 +121,7 @@ model ProductReview {
   userId    String
   productId String
   sellerId  String?
-  rating    Int
+  rating    Float
   comment   String?
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
@@ -123,4 +129,45 @@ model ProductReview {
 
   @@unique([userId, productId])
   @@index([productId])
+}
+
+model BuyerReview {
+  id         String   @id @default(uuid())
+  reviewerId String
+  buyerId    String
+  productId  String
+  rating     Float
+  comment    String?
+  createdAt  DateTime @default(now())
+  reviewer   User     @relation("BuyerReviewReviewer", fields: [reviewerId], references: [id])
+  buyer      User     @relation("BuyerReviewBuyer", fields: [buyerId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+
+  @@unique([reviewerId, buyerId, productId])
+  @@index([buyerId])
+  @@index([productId])
+}
+
+model SupportTicket {
+  id            String   @id @default(uuid())
+  subject       String
+  description   String
+  category      String
+  email         String?
+  source        String
+  deviceInfo    String?
+  appVersion    String?
+  screenshotUrl String?
+  productId     String?
+  userId        String?
+  status        String   @default("OPEN")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User?    @relation(fields: [userId], references: [id])
+  product       Product? @relation(fields: [productId], references: [id])
+
+  @@index([userId])
+  @@index([productId])
+  @@index([email])
+  @@index([createdAt])
 }

@@ -40,6 +40,7 @@ export type ProductMinAggregateOutputType = {
     latitude: number | null;
     longitude: number | null;
     createdAt: Date | null;
+    sellerMarkedSoldAt: Date | null;
 };
 export type ProductMaxAggregateOutputType = {
     id: string | null;
@@ -59,6 +60,7 @@ export type ProductMaxAggregateOutputType = {
     latitude: number | null;
     longitude: number | null;
     createdAt: Date | null;
+    sellerMarkedSoldAt: Date | null;
 };
 export type ProductCountAggregateOutputType = {
     id: number;
@@ -79,6 +81,7 @@ export type ProductCountAggregateOutputType = {
     latitude: number;
     longitude: number;
     createdAt: number;
+    sellerMarkedSoldAt: number;
     _all: number;
 };
 export type ProductAvgAggregateInputType = {
@@ -113,6 +116,7 @@ export type ProductMinAggregateInputType = {
     latitude?: true;
     longitude?: true;
     createdAt?: true;
+    sellerMarkedSoldAt?: true;
 };
 export type ProductMaxAggregateInputType = {
     id?: true;
@@ -132,6 +136,7 @@ export type ProductMaxAggregateInputType = {
     latitude?: true;
     longitude?: true;
     createdAt?: true;
+    sellerMarkedSoldAt?: true;
 };
 export type ProductCountAggregateInputType = {
     id?: true;
@@ -152,6 +157,7 @@ export type ProductCountAggregateInputType = {
     latitude?: true;
     longitude?: true;
     createdAt?: true;
+    sellerMarkedSoldAt?: true;
     _all?: true;
 };
 export type ProductAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -201,6 +207,7 @@ export type ProductGroupByOutputType = {
     latitude: number;
     longitude: number;
     createdAt: Date;
+    sellerMarkedSoldAt: Date | null;
     _count: ProductCountAggregateOutputType | null;
     _avg: ProductAvgAggregateOutputType | null;
     _sum: ProductSumAggregateOutputType | null;
@@ -232,9 +239,11 @@ export type ProductWhereInput = {
     latitude?: Prisma.FloatFilter<"Product"> | number;
     longitude?: Prisma.FloatFilter<"Product"> | number;
     createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string;
+    sellerMarkedSoldAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null;
     seller?: Prisma.XOR<Prisma.SellerScalarRelationFilter, Prisma.SellerWhereInput>;
     purchases?: Prisma.PurchaseListRelationFilter;
     reviews?: Prisma.ProductReviewListRelationFilter;
+    buyerReviews?: Prisma.BuyerReviewListRelationFilter;
 };
 export type ProductOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -255,9 +264,11 @@ export type ProductOrderByWithRelationInput = {
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
+    sellerMarkedSoldAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     seller?: Prisma.SellerOrderByWithRelationInput;
     purchases?: Prisma.PurchaseOrderByRelationAggregateInput;
     reviews?: Prisma.ProductReviewOrderByRelationAggregateInput;
+    buyerReviews?: Prisma.BuyerReviewOrderByRelationAggregateInput;
 };
 export type ProductWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -281,9 +292,11 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
     latitude?: Prisma.FloatFilter<"Product"> | number;
     longitude?: Prisma.FloatFilter<"Product"> | number;
     createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string;
+    sellerMarkedSoldAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null;
     seller?: Prisma.XOR<Prisma.SellerScalarRelationFilter, Prisma.SellerWhereInput>;
     purchases?: Prisma.PurchaseListRelationFilter;
     reviews?: Prisma.ProductReviewListRelationFilter;
+    buyerReviews?: Prisma.BuyerReviewListRelationFilter;
 }, "id">;
 export type ProductOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -304,6 +317,7 @@ export type ProductOrderByWithAggregationInput = {
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
+    sellerMarkedSoldAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     _count?: Prisma.ProductCountOrderByAggregateInput;
     _avg?: Prisma.ProductAvgOrderByAggregateInput;
     _max?: Prisma.ProductMaxOrderByAggregateInput;
@@ -332,6 +346,7 @@ export type ProductScalarWhereWithAggregatesInput = {
     latitude?: Prisma.FloatWithAggregatesFilter<"Product"> | number;
     longitude?: Prisma.FloatWithAggregatesFilter<"Product"> | number;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string;
+    sellerMarkedSoldAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null;
 };
 export type ProductCreateInput = {
     id?: string;
@@ -351,9 +366,11 @@ export type ProductCreateInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateInput = {
     id?: string;
@@ -374,8 +391,10 @@ export type ProductUncheckedCreateInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -395,9 +414,11 @@ export type ProductUpdateInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -418,8 +439,10 @@ export type ProductUncheckedUpdateInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateManyInput = {
     id?: string;
@@ -440,6 +463,7 @@ export type ProductCreateManyInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
 };
 export type ProductUpdateManyMutationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -459,6 +483,7 @@ export type ProductUpdateManyMutationInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 };
 export type ProductUncheckedUpdateManyInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -479,6 +504,7 @@ export type ProductUncheckedUpdateManyInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 };
 export type ProductListRelationFilter = {
     every?: Prisma.ProductWhereInput;
@@ -514,6 +540,7 @@ export type ProductCountOrderByAggregateInput = {
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
+    sellerMarkedSoldAt?: Prisma.SortOrder;
 };
 export type ProductAvgOrderByAggregateInput = {
     currentPrice?: Prisma.SortOrder;
@@ -540,6 +567,7 @@ export type ProductMaxOrderByAggregateInput = {
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
+    sellerMarkedSoldAt?: Prisma.SortOrder;
 };
 export type ProductMinOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -559,6 +587,7 @@ export type ProductMinOrderByAggregateInput = {
     latitude?: Prisma.SortOrder;
     longitude?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
+    sellerMarkedSoldAt?: Prisma.SortOrder;
 };
 export type ProductSumOrderByAggregateInput = {
     currentPrice?: Prisma.SortOrder;
@@ -647,6 +676,18 @@ export type ProductUpdateOneRequiredWithoutReviewsNestedInput = {
     connect?: Prisma.ProductWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutReviewsInput, Prisma.ProductUpdateWithoutReviewsInput>, Prisma.ProductUncheckedUpdateWithoutReviewsInput>;
 };
+export type ProductCreateNestedOneWithoutBuyerReviewsInput = {
+    create?: Prisma.XOR<Prisma.ProductCreateWithoutBuyerReviewsInput, Prisma.ProductUncheckedCreateWithoutBuyerReviewsInput>;
+    connectOrCreate?: Prisma.ProductCreateOrConnectWithoutBuyerReviewsInput;
+    connect?: Prisma.ProductWhereUniqueInput;
+};
+export type ProductUpdateOneRequiredWithoutBuyerReviewsNestedInput = {
+    create?: Prisma.XOR<Prisma.ProductCreateWithoutBuyerReviewsInput, Prisma.ProductUncheckedCreateWithoutBuyerReviewsInput>;
+    connectOrCreate?: Prisma.ProductCreateOrConnectWithoutBuyerReviewsInput;
+    upsert?: Prisma.ProductUpsertWithoutBuyerReviewsInput;
+    connect?: Prisma.ProductWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.ProductUpdateToOneWithWhereWithoutBuyerReviewsInput, Prisma.ProductUpdateWithoutBuyerReviewsInput>, Prisma.ProductUncheckedUpdateWithoutBuyerReviewsInput>;
+};
 export type ProductCreateWithoutSellerInput = {
     id?: string;
     name: string;
@@ -665,8 +706,10 @@ export type ProductCreateWithoutSellerInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutSellerInput = {
     id?: string;
@@ -686,8 +729,10 @@ export type ProductUncheckedCreateWithoutSellerInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutSellerInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -732,6 +777,7 @@ export type ProductScalarWhereInput = {
     latitude?: Prisma.FloatFilter<"Product"> | number;
     longitude?: Prisma.FloatFilter<"Product"> | number;
     createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string;
+    sellerMarkedSoldAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null;
 };
 export type ProductCreateWithoutPurchasesInput = {
     id?: string;
@@ -751,8 +797,10 @@ export type ProductCreateWithoutPurchasesInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutPurchasesInput = {
     id?: string;
@@ -773,7 +821,9 @@ export type ProductUncheckedCreateWithoutPurchasesInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutPurchasesInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -806,8 +856,10 @@ export type ProductUpdateWithoutPurchasesInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutPurchasesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -828,7 +880,9 @@ export type ProductUncheckedUpdateWithoutPurchasesInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateWithoutReviewsInput = {
     id?: string;
@@ -848,8 +902,10 @@ export type ProductCreateWithoutReviewsInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewCreateNestedManyWithoutProductInput;
 };
 export type ProductUncheckedCreateWithoutReviewsInput = {
     id?: string;
@@ -870,7 +926,9 @@ export type ProductUncheckedCreateWithoutReviewsInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutProductInput;
 };
 export type ProductCreateOrConnectWithoutReviewsInput = {
     where: Prisma.ProductWhereUniqueInput;
@@ -903,8 +961,10 @@ export type ProductUpdateWithoutReviewsInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -925,7 +985,114 @@ export type ProductUncheckedUpdateWithoutReviewsInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
+};
+export type ProductCreateWithoutBuyerReviewsInput = {
+    id?: string;
+    name: string;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    images?: Prisma.ProductCreateimagesInput | string[];
+    videoUrl?: string;
+    videoStory?: string;
+    currentPrice?: number;
+    previousPrice?: number;
+    discountPercentage?: number;
+    condition?: string;
+    location?: string;
+    category?: string;
+    latitude: number;
+    longitude: number;
+    createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
+    seller: Prisma.SellerCreateNestedOneWithoutProductsInput;
+    purchases?: Prisma.PurchaseCreateNestedManyWithoutProductInput;
+    reviews?: Prisma.ProductReviewCreateNestedManyWithoutProductInput;
+};
+export type ProductUncheckedCreateWithoutBuyerReviewsInput = {
+    id?: string;
+    sellerId: string;
+    name: string;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    images?: Prisma.ProductCreateimagesInput | string[];
+    videoUrl?: string;
+    videoStory?: string;
+    currentPrice?: number;
+    previousPrice?: number;
+    discountPercentage?: number;
+    condition?: string;
+    location?: string;
+    category?: string;
+    latitude: number;
+    longitude: number;
+    createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
+    purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutProductInput;
+    reviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutProductInput;
+};
+export type ProductCreateOrConnectWithoutBuyerReviewsInput = {
+    where: Prisma.ProductWhereUniqueInput;
+    create: Prisma.XOR<Prisma.ProductCreateWithoutBuyerReviewsInput, Prisma.ProductUncheckedCreateWithoutBuyerReviewsInput>;
+};
+export type ProductUpsertWithoutBuyerReviewsInput = {
+    update: Prisma.XOR<Prisma.ProductUpdateWithoutBuyerReviewsInput, Prisma.ProductUncheckedUpdateWithoutBuyerReviewsInput>;
+    create: Prisma.XOR<Prisma.ProductCreateWithoutBuyerReviewsInput, Prisma.ProductUncheckedCreateWithoutBuyerReviewsInput>;
+    where?: Prisma.ProductWhereInput;
+};
+export type ProductUpdateToOneWithWhereWithoutBuyerReviewsInput = {
+    where?: Prisma.ProductWhereInput;
+    data: Prisma.XOR<Prisma.ProductUpdateWithoutBuyerReviewsInput, Prisma.ProductUncheckedUpdateWithoutBuyerReviewsInput>;
+};
+export type ProductUpdateWithoutBuyerReviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    images?: Prisma.ProductUpdateimagesInput | string[];
+    videoUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    videoStory?: Prisma.StringFieldUpdateOperationsInput | string;
+    currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    previousPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number;
+    condition?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    seller?: Prisma.SellerUpdateOneRequiredWithoutProductsNestedInput;
+    purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
+    reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+};
+export type ProductUncheckedUpdateWithoutBuyerReviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    sellerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    title?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.StringFieldUpdateOperationsInput | string;
+    imageUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    images?: Prisma.ProductUpdateimagesInput | string[];
+    videoUrl?: Prisma.StringFieldUpdateOperationsInput | string;
+    videoStory?: Prisma.StringFieldUpdateOperationsInput | string;
+    currentPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    previousPrice?: Prisma.FloatFieldUpdateOperationsInput | number;
+    discountPercentage?: Prisma.IntFieldUpdateOperationsInput | number;
+    condition?: Prisma.StringFieldUpdateOperationsInput | string;
+    location?: Prisma.StringFieldUpdateOperationsInput | string;
+    category?: Prisma.StringFieldUpdateOperationsInput | string;
+    latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
+    reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductCreateManySellerInput = {
     id?: string;
@@ -945,6 +1112,7 @@ export type ProductCreateManySellerInput = {
     latitude: number;
     longitude: number;
     createdAt?: Date | string;
+    sellerMarkedSoldAt?: Date | string | null;
 };
 export type ProductUpdateWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -964,8 +1132,10 @@ export type ProductUpdateWithoutSellerInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -985,8 +1155,10 @@ export type ProductUncheckedUpdateWithoutSellerInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutProductNestedInput;
     reviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutProductNestedInput;
+    buyerReviews?: Prisma.BuyerReviewUncheckedUpdateManyWithoutProductNestedInput;
 };
 export type ProductUncheckedUpdateManyWithoutSellerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1006,14 +1178,17 @@ export type ProductUncheckedUpdateManyWithoutSellerInput = {
     latitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     longitude?: Prisma.FloatFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sellerMarkedSoldAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
 };
 export type ProductCountOutputType = {
     purchases: number;
     reviews: number;
+    buyerReviews: number;
 };
 export type ProductCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     purchases?: boolean | ProductCountOutputTypeCountPurchasesArgs;
     reviews?: boolean | ProductCountOutputTypeCountReviewsArgs;
+    buyerReviews?: boolean | ProductCountOutputTypeCountBuyerReviewsArgs;
 };
 export type ProductCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.ProductCountOutputTypeSelect<ExtArgs> | null;
@@ -1023,6 +1198,9 @@ export type ProductCountOutputTypeCountPurchasesArgs<ExtArgs extends runtime.Typ
 };
 export type ProductCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.ProductReviewWhereInput;
+};
+export type ProductCountOutputTypeCountBuyerReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.BuyerReviewWhereInput;
 };
 export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -1043,9 +1221,11 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     latitude?: boolean;
     longitude?: boolean;
     createdAt?: boolean;
+    sellerMarkedSoldAt?: boolean;
     seller?: boolean | Prisma.SellerDefaultArgs<ExtArgs>;
     purchases?: boolean | Prisma.Product$purchasesArgs<ExtArgs>;
     reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>;
+    buyerReviews?: boolean | Prisma.Product$buyerReviewsArgs<ExtArgs>;
     _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["product"]>;
 export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1067,6 +1247,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     latitude?: boolean;
     longitude?: boolean;
     createdAt?: boolean;
+    sellerMarkedSoldAt?: boolean;
     seller?: boolean | Prisma.SellerDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["product"]>;
 export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1088,6 +1269,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
     latitude?: boolean;
     longitude?: boolean;
     createdAt?: boolean;
+    sellerMarkedSoldAt?: boolean;
     seller?: boolean | Prisma.SellerDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["product"]>;
 export type ProductSelectScalar = {
@@ -1109,12 +1291,14 @@ export type ProductSelectScalar = {
     latitude?: boolean;
     longitude?: boolean;
     createdAt?: boolean;
+    sellerMarkedSoldAt?: boolean;
 };
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sellerId" | "name" | "title" | "description" | "imageUrl" | "images" | "videoUrl" | "videoStory" | "currentPrice" | "previousPrice" | "discountPercentage" | "condition" | "location" | "category" | "latitude" | "longitude" | "createdAt", ExtArgs["result"]["product"]>;
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sellerId" | "name" | "title" | "description" | "imageUrl" | "images" | "videoUrl" | "videoStory" | "currentPrice" | "previousPrice" | "discountPercentage" | "condition" | "location" | "category" | "latitude" | "longitude" | "createdAt" | "sellerMarkedSoldAt", ExtArgs["result"]["product"]>;
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     seller?: boolean | Prisma.SellerDefaultArgs<ExtArgs>;
     purchases?: boolean | Prisma.Product$purchasesArgs<ExtArgs>;
     reviews?: boolean | Prisma.Product$reviewsArgs<ExtArgs>;
+    buyerReviews?: boolean | Prisma.Product$buyerReviewsArgs<ExtArgs>;
     _count?: boolean | Prisma.ProductCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type ProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1129,6 +1313,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         seller: Prisma.$SellerPayload<ExtArgs>;
         purchases: Prisma.$PurchasePayload<ExtArgs>[];
         reviews: Prisma.$ProductReviewPayload<ExtArgs>[];
+        buyerReviews: Prisma.$BuyerReviewPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1149,6 +1334,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         latitude: number;
         longitude: number;
         createdAt: Date;
+        sellerMarkedSoldAt: Date | null;
     }, ExtArgs["result"]["product"]>;
     composites: {};
 };
@@ -1204,6 +1390,7 @@ export interface Prisma__ProductClient<T, Null = never, ExtArgs extends runtime.
     seller<T extends Prisma.SellerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SellerDefaultArgs<ExtArgs>>): Prisma.Prisma__SellerClient<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     purchases<T extends Prisma.Product$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     reviews<T extends Prisma.Product$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    buyerReviews<T extends Prisma.Product$buyerReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Product$buyerReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BuyerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -1227,6 +1414,7 @@ export interface ProductFieldRefs {
     readonly latitude: Prisma.FieldRef<"Product", 'Float'>;
     readonly longitude: Prisma.FieldRef<"Product", 'Float'>;
     readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>;
+    readonly sellerMarkedSoldAt: Prisma.FieldRef<"Product", 'DateTime'>;
 }
 export type ProductFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.ProductSelect<ExtArgs> | null;
@@ -1349,6 +1537,17 @@ export type Product$reviewsArgs<ExtArgs extends runtime.Types.Extensions.Interna
     take?: number;
     skip?: number;
     distinct?: Prisma.ProductReviewScalarFieldEnum | Prisma.ProductReviewScalarFieldEnum[];
+};
+export type Product$buyerReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.BuyerReviewSelect<ExtArgs> | null;
+    omit?: Prisma.BuyerReviewOmit<ExtArgs> | null;
+    include?: Prisma.BuyerReviewInclude<ExtArgs> | null;
+    where?: Prisma.BuyerReviewWhereInput;
+    orderBy?: Prisma.BuyerReviewOrderByWithRelationInput | Prisma.BuyerReviewOrderByWithRelationInput[];
+    cursor?: Prisma.BuyerReviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.BuyerReviewScalarFieldEnum | Prisma.BuyerReviewScalarFieldEnum[];
 };
 export type ProductDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.ProductSelect<ExtArgs> | null;

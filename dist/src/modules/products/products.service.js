@@ -16,6 +16,12 @@ let ProductsService = class ProductsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    canSellerMarkSold(product, userId) {
+        return product.seller.userId === userId;
+    }
+    canBuyerMarkReceived(product, userId) {
+        return product.seller.userId !== userId;
+    }
     async create(userId, createProductDto) {
         const seller = await this.prisma.seller.findUnique({
             where: { id: createProductDto.sellerId },
@@ -87,10 +93,72 @@ let ProductsService = class ProductsService {
         }
         return product;
     }
+    async getTransactionStatus(productId, userId) {
+        const product = await this.findById(productId);
+        const isSellerOwner = userId
+            ? this.canSellerMarkSold(product, userId)
+            : false;
+        const viewerPurchase = userId
+            ? product.purchases.find((purchase) => purchase.buyerId === userId)
+            : undefined;
+        const confirmedBuyer = product.purchases.find((purchase) => purchase.buyerConfirmedAt) ?? null;
+        const buyerConfirmed = Boolean(viewerPurchase?.buyerConfirmedAt);
+        const sellerMarkedSold = Boolean(product.sellerMarkedSoldAt);
+        const canMarkSold = Boolean(userId && isSellerOwner && !sellerMarkedSold);
+        const canMarkReceived = Boolean(userId && !isSellerOwner && !buyerConfirmed);
+        const canBuyerReviewSeller = Boolean(userId && !isSellerOwner && (sellerMarkedSold || buyerConfirmed));
+        const canSellerReviewBuyer = Boolean(userId && isSellerOwner && confirmedBuyer?.buyerConfirmedAt);
+        return {
+            productId: product.id,
+            isSellerOwner,
+            sellerMarkedSold,
+            sellerMarkedSoldAt: product.sellerMarkedSoldAt,
+            buyerConfirmed,
+            buyerConfirmedAt: viewerPurchase?.buyerConfirmedAt ?? null,
+            buyerIdForSellerReview: isSellerOwner ? confirmedBuyer?.buyerId ?? null : null,
+            canMarkSold,
+            canMarkReceived,
+            canBuyerReviewSeller,
+            canBuyerReviewProduct: canBuyerReviewSeller,
+            canSellerReviewBuyer,
+            message: this.getTransactionStatusMessage({
+                isSellerOwner,
+                sellerMarkedSold,
+                buyerConfirmed,
+                canSellerReviewBuyer,
+            }),
+        };
+    }
+    getTransactionStatusMessage(status) {
+        if (status.isSellerOwner) {
+            if (status.buyerConfirmed || status.canSellerReviewBuyer) {
+                return 'The buyer confirmed they received this product. You can now review the buyer.';
+            }
+            return 'Waiting for buyer to confirm they received this product before buyer review is enabled.';
+        }
+        if (status.sellerMarkedSold) {
+            return 'The seller marked this product as sold. If you bought this item, please confirm and leave a review.';
+        }
+        if (status.buyerConfirmed) {
+            return 'You confirmed you received this product. You can now leave a review.';
+        }
+        return 'Waiting for seller to mark this product as sold before reviews are enabled.';
+    }
     async confirmBought(userId, confirmProductDto) {
         const product = await this.findById(confirmProductDto.productId);
-        if (product.seller.userId === userId) {
+        if (!this.canBuyerMarkReceived(product, userId)) {
             throw new common_1.ForbiddenException('Seller cannot confirm buying own product');
+        }
+        const existingPurchase = await this.prisma.purchase.findUnique({
+            where: {
+                productId_buyerId: {
+                    productId: product.id,
+                    buyerId: userId,
+                },
+            },
+        });
+        if (existingPurchase?.buyerConfirmedAt) {
+            throw new common_1.ConflictException('Product receipt already confirmed');
         }
         return this.prisma.purchase.upsert({
             where: {
@@ -116,30 +184,23 @@ let ProductsService = class ProductsService {
     }
     async confirmSold(userId, confirmProductDto) {
         const product = await this.findById(confirmProductDto.productId);
-        if (product.seller.userId !== userId) {
+        if (!this.canSellerMarkSold(product, userId)) {
             throw new common_1.ForbiddenException('Only the seller can confirm this sale');
         }
-        const purchase = await this.prisma.purchase.findFirst({
-            where: {
-                productId: product.id,
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        });
-        if (!purchase) {
-            throw new common_1.NotFoundException('Buyer confirmation not found');
+        if (product.sellerMarkedSoldAt) {
+            throw new common_1.ConflictException('Product is already marked as sold');
         }
-        return this.prisma.purchase.update({
+        return this.prisma.product.update({
             where: {
-                id: purchase.id,
+                id: product.id,
             },
             data: {
-                sellerConfirmedAt: new Date(),
+                sellerMarkedSoldAt: new Date(),
             },
             include: {
-                product: true,
-                buyer: true,
+                seller: true,
+                purchases: true,
+                reviews: true,
             },
         });
     }

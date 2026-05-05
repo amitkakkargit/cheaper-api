@@ -109,6 +109,8 @@ export type UserWhereInput = {
     purchases?: Prisma.PurchaseListRelationFilter;
     sellerReviews?: Prisma.SellerReviewListRelationFilter;
     productReviews?: Prisma.ProductReviewListRelationFilter;
+    buyerReviewsWritten?: Prisma.BuyerReviewListRelationFilter;
+    buyerReviewsReceived?: Prisma.BuyerReviewListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -122,6 +124,8 @@ export type UserOrderByWithRelationInput = {
     purchases?: Prisma.PurchaseOrderByRelationAggregateInput;
     sellerReviews?: Prisma.SellerReviewOrderByRelationAggregateInput;
     productReviews?: Prisma.ProductReviewOrderByRelationAggregateInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewOrderByRelationAggregateInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewOrderByRelationAggregateInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -138,6 +142,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     purchases?: Prisma.PurchaseListRelationFilter;
     sellerReviews?: Prisma.SellerReviewListRelationFilter;
     productReviews?: Prisma.ProductReviewListRelationFilter;
+    buyerReviewsWritten?: Prisma.BuyerReviewListRelationFilter;
+    buyerReviewsReceived?: Prisma.BuyerReviewListRelationFilter;
 }, "id" | "email" | "phone">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -173,6 +179,8 @@ export type UserCreateInput = {
     purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateInput = {
     id?: string;
@@ -186,6 +194,8 @@ export type UserUncheckedCreateInput = {
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -199,6 +209,8 @@ export type UserUpdateInput = {
     purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -212,6 +224,8 @@ export type UserUncheckedUpdateInput = {
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
 };
 export type UserCreateManyInput = {
     id?: string;
@@ -340,6 +354,30 @@ export type UserUpdateOneRequiredWithoutProductReviewsNestedInput = {
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProductReviewsInput, Prisma.UserUpdateWithoutProductReviewsInput>, Prisma.UserUncheckedUpdateWithoutProductReviewsInput>;
 };
+export type UserCreateNestedOneWithoutBuyerReviewsWrittenInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsWrittenInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBuyerReviewsWrittenInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserCreateNestedOneWithoutBuyerReviewsReceivedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsReceivedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBuyerReviewsReceivedInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutBuyerReviewsWrittenNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsWrittenInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBuyerReviewsWrittenInput;
+    upsert?: Prisma.UserUpsertWithoutBuyerReviewsWrittenInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBuyerReviewsWrittenInput, Prisma.UserUpdateWithoutBuyerReviewsWrittenInput>, Prisma.UserUncheckedUpdateWithoutBuyerReviewsWrittenInput>;
+};
+export type UserUpdateOneRequiredWithoutBuyerReviewsReceivedNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsReceivedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBuyerReviewsReceivedInput;
+    upsert?: Prisma.UserUpsertWithoutBuyerReviewsReceivedInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBuyerReviewsReceivedInput, Prisma.UserUpdateWithoutBuyerReviewsReceivedInput>, Prisma.UserUncheckedUpdateWithoutBuyerReviewsReceivedInput>;
+};
 export type UserCreateWithoutOtpCodesInput = {
     id?: string;
     email?: string | null;
@@ -351,6 +389,8 @@ export type UserCreateWithoutOtpCodesInput = {
     purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateWithoutOtpCodesInput = {
     id?: string;
@@ -363,6 +403,8 @@ export type UserUncheckedCreateWithoutOtpCodesInput = {
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserCreateOrConnectWithoutOtpCodesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -388,6 +430,8 @@ export type UserUpdateWithoutOtpCodesInput = {
     purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateWithoutOtpCodesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -400,6 +444,8 @@ export type UserUncheckedUpdateWithoutOtpCodesInput = {
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
 };
 export type UserCreateWithoutSellersInput = {
     id?: string;
@@ -412,6 +458,8 @@ export type UserCreateWithoutSellersInput = {
     purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateWithoutSellersInput = {
     id?: string;
@@ -424,6 +472,8 @@ export type UserUncheckedCreateWithoutSellersInput = {
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserCreateOrConnectWithoutSellersInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -449,6 +499,8 @@ export type UserUpdateWithoutSellersInput = {
     purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateWithoutSellersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -461,6 +513,8 @@ export type UserUncheckedUpdateWithoutSellersInput = {
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
 };
 export type UserCreateWithoutPurchasesInput = {
     id?: string;
@@ -473,6 +527,8 @@ export type UserCreateWithoutPurchasesInput = {
     sellers?: Prisma.SellerCreateNestedManyWithoutUserInput;
     sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateWithoutPurchasesInput = {
     id?: string;
@@ -485,6 +541,8 @@ export type UserUncheckedCreateWithoutPurchasesInput = {
     sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput;
     sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
     productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserCreateOrConnectWithoutPurchasesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -510,6 +568,8 @@ export type UserUpdateWithoutPurchasesInput = {
     sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput;
     sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateWithoutPurchasesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -522,6 +582,8 @@ export type UserUncheckedUpdateWithoutPurchasesInput = {
     sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput;
     sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
     productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
 };
 export type UserCreateWithoutSellerReviewsInput = {
     id?: string;
@@ -534,6 +596,8 @@ export type UserCreateWithoutSellerReviewsInput = {
     sellers?: Prisma.SellerCreateNestedManyWithoutUserInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
     productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateWithoutSellerReviewsInput = {
     id?: string;
@@ -546,6 +610,8 @@ export type UserUncheckedCreateWithoutSellerReviewsInput = {
     sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
     productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserCreateOrConnectWithoutSellerReviewsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -571,6 +637,8 @@ export type UserUpdateWithoutSellerReviewsInput = {
     sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
     productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateWithoutSellerReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -583,6 +651,8 @@ export type UserUncheckedUpdateWithoutSellerReviewsInput = {
     sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
     productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
 };
 export type UserCreateWithoutProductReviewsInput = {
     id?: string;
@@ -595,6 +665,8 @@ export type UserCreateWithoutProductReviewsInput = {
     sellers?: Prisma.SellerCreateNestedManyWithoutUserInput;
     purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
 };
 export type UserUncheckedCreateWithoutProductReviewsInput = {
     id?: string;
@@ -607,6 +679,8 @@ export type UserUncheckedCreateWithoutProductReviewsInput = {
     sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput;
     purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
     sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
 };
 export type UserCreateOrConnectWithoutProductReviewsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -632,6 +706,8 @@ export type UserUpdateWithoutProductReviewsInput = {
     sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput;
     purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
 };
 export type UserUncheckedUpdateWithoutProductReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -644,6 +720,146 @@ export type UserUncheckedUpdateWithoutProductReviewsInput = {
     sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput;
     purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
     sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
+};
+export type UserCreateWithoutBuyerReviewsWrittenInput = {
+    id?: string;
+    email?: string | null;
+    phone?: string | null;
+    name?: string | null;
+    avatarUrl?: string | null;
+    createdAt?: Date | string;
+    otpCodes?: Prisma.OtpCodeCreateNestedManyWithoutUserInput;
+    sellers?: Prisma.SellerCreateNestedManyWithoutUserInput;
+    purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
+    sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
+    productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewCreateNestedManyWithoutBuyerInput;
+};
+export type UserUncheckedCreateWithoutBuyerReviewsWrittenInput = {
+    id?: string;
+    email?: string | null;
+    phone?: string | null;
+    name?: string | null;
+    avatarUrl?: string | null;
+    createdAt?: Date | string;
+    otpCodes?: Prisma.OtpCodeUncheckedCreateNestedManyWithoutUserInput;
+    sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput;
+    purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
+    sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
+    productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutBuyerInput;
+};
+export type UserCreateOrConnectWithoutBuyerReviewsWrittenInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsWrittenInput>;
+};
+export type UserCreateWithoutBuyerReviewsReceivedInput = {
+    id?: string;
+    email?: string | null;
+    phone?: string | null;
+    name?: string | null;
+    avatarUrl?: string | null;
+    createdAt?: Date | string;
+    otpCodes?: Prisma.OtpCodeCreateNestedManyWithoutUserInput;
+    sellers?: Prisma.SellerCreateNestedManyWithoutUserInput;
+    purchases?: Prisma.PurchaseCreateNestedManyWithoutBuyerInput;
+    sellerReviews?: Prisma.SellerReviewCreateNestedManyWithoutUserInput;
+    productReviews?: Prisma.ProductReviewCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewCreateNestedManyWithoutReviewerInput;
+};
+export type UserUncheckedCreateWithoutBuyerReviewsReceivedInput = {
+    id?: string;
+    email?: string | null;
+    phone?: string | null;
+    name?: string | null;
+    avatarUrl?: string | null;
+    createdAt?: Date | string;
+    otpCodes?: Prisma.OtpCodeUncheckedCreateNestedManyWithoutUserInput;
+    sellers?: Prisma.SellerUncheckedCreateNestedManyWithoutUserInput;
+    purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutBuyerInput;
+    sellerReviews?: Prisma.SellerReviewUncheckedCreateNestedManyWithoutUserInput;
+    productReviews?: Prisma.ProductReviewUncheckedCreateNestedManyWithoutUserInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedCreateNestedManyWithoutReviewerInput;
+};
+export type UserCreateOrConnectWithoutBuyerReviewsReceivedInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsReceivedInput>;
+};
+export type UserUpsertWithoutBuyerReviewsWrittenInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedUpdateWithoutBuyerReviewsWrittenInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsWrittenInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutBuyerReviewsWrittenInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutBuyerReviewsWrittenInput, Prisma.UserUncheckedUpdateWithoutBuyerReviewsWrittenInput>;
+};
+export type UserUpdateWithoutBuyerReviewsWrittenInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    otpCodes?: Prisma.OtpCodeUpdateManyWithoutUserNestedInput;
+    sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput;
+    purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
+    sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
+    productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUpdateManyWithoutBuyerNestedInput;
+};
+export type UserUncheckedUpdateWithoutBuyerReviewsWrittenInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    otpCodes?: Prisma.OtpCodeUncheckedUpdateManyWithoutUserNestedInput;
+    sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput;
+    purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
+    sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
+    productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsReceived?: Prisma.BuyerReviewUncheckedUpdateManyWithoutBuyerNestedInput;
+};
+export type UserUpsertWithoutBuyerReviewsReceivedInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutBuyerReviewsReceivedInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutBuyerReviewsReceivedInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutBuyerReviewsReceivedInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutBuyerReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutBuyerReviewsReceivedInput>;
+};
+export type UserUpdateWithoutBuyerReviewsReceivedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    otpCodes?: Prisma.OtpCodeUpdateManyWithoutUserNestedInput;
+    sellers?: Prisma.SellerUpdateManyWithoutUserNestedInput;
+    purchases?: Prisma.PurchaseUpdateManyWithoutBuyerNestedInput;
+    sellerReviews?: Prisma.SellerReviewUpdateManyWithoutUserNestedInput;
+    productReviews?: Prisma.ProductReviewUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUpdateManyWithoutReviewerNestedInput;
+};
+export type UserUncheckedUpdateWithoutBuyerReviewsReceivedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    otpCodes?: Prisma.OtpCodeUncheckedUpdateManyWithoutUserNestedInput;
+    sellers?: Prisma.SellerUncheckedUpdateManyWithoutUserNestedInput;
+    purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutBuyerNestedInput;
+    sellerReviews?: Prisma.SellerReviewUncheckedUpdateManyWithoutUserNestedInput;
+    productReviews?: Prisma.ProductReviewUncheckedUpdateManyWithoutUserNestedInput;
+    buyerReviewsWritten?: Prisma.BuyerReviewUncheckedUpdateManyWithoutReviewerNestedInput;
 };
 export type UserCountOutputType = {
     otpCodes: number;
@@ -651,6 +867,8 @@ export type UserCountOutputType = {
     purchases: number;
     sellerReviews: number;
     productReviews: number;
+    buyerReviewsWritten: number;
+    buyerReviewsReceived: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     otpCodes?: boolean | UserCountOutputTypeCountOtpCodesArgs;
@@ -658,6 +876,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
     purchases?: boolean | UserCountOutputTypeCountPurchasesArgs;
     sellerReviews?: boolean | UserCountOutputTypeCountSellerReviewsArgs;
     productReviews?: boolean | UserCountOutputTypeCountProductReviewsArgs;
+    buyerReviewsWritten?: boolean | UserCountOutputTypeCountBuyerReviewsWrittenArgs;
+    buyerReviewsReceived?: boolean | UserCountOutputTypeCountBuyerReviewsReceivedArgs;
 };
 export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
@@ -677,6 +897,12 @@ export type UserCountOutputTypeCountSellerReviewsArgs<ExtArgs extends runtime.Ty
 export type UserCountOutputTypeCountProductReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.ProductReviewWhereInput;
 };
+export type UserCountOutputTypeCountBuyerReviewsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.BuyerReviewWhereInput;
+};
+export type UserCountOutputTypeCountBuyerReviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.BuyerReviewWhereInput;
+};
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
@@ -689,6 +915,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>;
     sellerReviews?: boolean | Prisma.User$sellerReviewsArgs<ExtArgs>;
     productReviews?: boolean | Prisma.User$productReviewsArgs<ExtArgs>;
+    buyerReviewsWritten?: boolean | Prisma.User$buyerReviewsWrittenArgs<ExtArgs>;
+    buyerReviewsReceived?: boolean | Prisma.User$buyerReviewsReceivedArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -722,6 +950,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     purchases?: boolean | Prisma.User$purchasesArgs<ExtArgs>;
     sellerReviews?: boolean | Prisma.User$sellerReviewsArgs<ExtArgs>;
     productReviews?: boolean | Prisma.User$productReviewsArgs<ExtArgs>;
+    buyerReviewsWritten?: boolean | Prisma.User$buyerReviewsWrittenArgs<ExtArgs>;
+    buyerReviewsReceived?: boolean | Prisma.User$buyerReviewsReceivedArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -734,6 +964,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         purchases: Prisma.$PurchasePayload<ExtArgs>[];
         sellerReviews: Prisma.$SellerReviewPayload<ExtArgs>[];
         productReviews: Prisma.$ProductReviewPayload<ExtArgs>[];
+        buyerReviewsWritten: Prisma.$BuyerReviewPayload<ExtArgs>[];
+        buyerReviewsReceived: Prisma.$BuyerReviewPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -799,6 +1031,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
     purchases<T extends Prisma.User$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     sellerReviews<T extends Prisma.User$sellerReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sellerReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SellerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     productReviews<T extends Prisma.User$productReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$productReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    buyerReviewsWritten<T extends Prisma.User$buyerReviewsWrittenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$buyerReviewsWrittenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BuyerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    buyerReviewsReceived<T extends Prisma.User$buyerReviewsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$buyerReviewsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BuyerReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -963,6 +1197,28 @@ export type User$productReviewsArgs<ExtArgs extends runtime.Types.Extensions.Int
     take?: number;
     skip?: number;
     distinct?: Prisma.ProductReviewScalarFieldEnum | Prisma.ProductReviewScalarFieldEnum[];
+};
+export type User$buyerReviewsWrittenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.BuyerReviewSelect<ExtArgs> | null;
+    omit?: Prisma.BuyerReviewOmit<ExtArgs> | null;
+    include?: Prisma.BuyerReviewInclude<ExtArgs> | null;
+    where?: Prisma.BuyerReviewWhereInput;
+    orderBy?: Prisma.BuyerReviewOrderByWithRelationInput | Prisma.BuyerReviewOrderByWithRelationInput[];
+    cursor?: Prisma.BuyerReviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.BuyerReviewScalarFieldEnum | Prisma.BuyerReviewScalarFieldEnum[];
+};
+export type User$buyerReviewsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.BuyerReviewSelect<ExtArgs> | null;
+    omit?: Prisma.BuyerReviewOmit<ExtArgs> | null;
+    include?: Prisma.BuyerReviewInclude<ExtArgs> | null;
+    where?: Prisma.BuyerReviewWhereInput;
+    orderBy?: Prisma.BuyerReviewOrderByWithRelationInput | Prisma.BuyerReviewOrderByWithRelationInput[];
+    cursor?: Prisma.BuyerReviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.BuyerReviewScalarFieldEnum | Prisma.BuyerReviewScalarFieldEnum[];
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

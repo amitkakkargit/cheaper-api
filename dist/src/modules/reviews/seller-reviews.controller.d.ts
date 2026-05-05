@@ -33,5 +33,13 @@ export declare class SellerReviewsController {
         rating: number;
         comment: string | null;
     }>;
-    findBySeller(sellerId: string, user?: CurrentUser): Promise<any[]>;
+    findBySeller(sellerId: string): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<{
+        id: string;
+        createdAt: Date;
+        rating: number;
+        comment: string | null;
+        user: {
+            name: string | null;
+        };
+    }[]>;
 }

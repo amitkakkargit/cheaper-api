@@ -12,6 +12,7 @@ const product_reviews_controller_1 = require("./product-reviews.controller");
 const reviews_controller_1 = require("./reviews.controller");
 const reviews_service_1 = require("./reviews.service");
 const seller_reviews_controller_1 = require("./seller-reviews.controller");
+const buyer_reviews_controller_1 = require("./buyer-reviews.controller");
 let ReviewsModule = class ReviewsModule {
 };
 exports.ReviewsModule = ReviewsModule;
@@ -21,6 +22,7 @@ exports.ReviewsModule = ReviewsModule = __decorate([
             reviews_controller_1.ReviewsController,
             seller_reviews_controller_1.SellerReviewsController,
             product_reviews_controller_1.ProductReviewsController,
+            buyer_reviews_controller_1.BuyerReviewsController,
         ],
         providers: [reviews_service_1.ReviewsService],
     })

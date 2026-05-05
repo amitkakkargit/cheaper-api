@@ -5,27 +5,27 @@ import {
   CurrentUser as CurrentUserPayload,
 } from '../../common/decorators/current-user.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { CreateProductReviewDto } from './dto/create-product-review.dto';
+import { CreateBuyerReviewDto } from './dto/create-buyer-review.dto';
 import { ReviewsService } from './reviews.service';
 
-@Controller('product-reviews')
-export class ProductReviewsController {
+@Controller('buyer-reviews')
+export class BuyerReviewsController {
   constructor(private readonly reviewsService: ReviewsService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
   create(
     @CurrentUserPayload() user: CurrentUser,
-    @Body() createProductReviewDto: CreateProductReviewDto,
+    @Body() createBuyerReviewDto: CreateBuyerReviewDto,
   ) {
-    return this.reviewsService.createProductReview(
+    return this.reviewsService.createBuyerReview(
       user.userId,
-      createProductReviewDto,
+      createBuyerReviewDto,
     );
   }
 
-  @Get(':productId')
-  findByProduct(@Param('productId') productId: string) {
-    return this.reviewsService.findProductReviews(productId);
+  @Get(':buyerId')
+  findByBuyer(@Param('buyerId') buyerId: string) {
+    return this.reviewsService.findBuyerReviews(buyerId);
   }
 }

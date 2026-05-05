@@ -1,11 +1,11 @@
 import { IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
 
-export class CreateSellerReviewDto {
-  @IsString()
-  sellerId!: string;
-
+export class CreateBuyerReviewDto {
   @IsString()
   productId!: string;
+
+  @IsString()
+  buyerId!: string;
 
   @IsNumber()
   @Min(1)

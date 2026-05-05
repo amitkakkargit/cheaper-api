@@ -1,4 +1,4 @@
-import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { ConflictException, ForbiddenException } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
 
@@ -10,9 +10,11 @@ describe('ProductsService', () => {
     product: {
       create: jest.fn(),
       findUnique: jest.fn(),
+      update: jest.fn(),
     },
     purchase: {
       upsert: jest.fn(),
+      findUnique: jest.fn(),
       findFirst: jest.fn(),
       update: jest.fn(),
     },
@@ -60,6 +62,7 @@ describe('ProductsService', () => {
       id: 'product-1',
       sellerId: 'seller-1',
       seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: null,
       reviews: [],
       purchases: [],
     });
@@ -70,20 +73,95 @@ describe('ProductsService', () => {
     ).rejects.toBeInstanceOf(ForbiddenException);
   });
 
-  it('requires a buyer confirmation before seller can confirm sold', async () => {
+  it('allows seller owner to mark their product as sold once', async () => {
     const prisma = createPrisma();
     prisma.product.findUnique.mockResolvedValue({
       id: 'product-1',
       sellerId: 'seller-1',
       seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: null,
       reviews: [],
       purchases: [],
     });
-    prisma.purchase.findFirst.mockResolvedValue(null);
+    prisma.product.update.mockResolvedValue({ id: 'product-1', sellerMarkedSoldAt: new Date() });
     const service = new ProductsService(prisma as never);
 
     await expect(
       service.confirmSold('owner-user', { productId: 'product-1' }),
-    ).rejects.toBeInstanceOf(NotFoundException);
+    ).resolves.toEqual(expect.objectContaining({ id: 'product-1' }));
+  });
+
+  it('blocks duplicate seller sold acknowledgements', async () => {
+    const prisma = createPrisma();
+    prisma.product.findUnique.mockResolvedValue({
+      id: 'product-1',
+      sellerId: 'seller-1',
+      seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: new Date(),
+      reviews: [],
+      purchases: [],
+    });
+    const service = new ProductsService(prisma as never);
+
+    await expect(
+      service.confirmSold('owner-user', { productId: 'product-1' }),
+    ).rejects.toBeInstanceOf(ConflictException);
+  });
+
+  it('blocks seller from confirming receipt of their own product', async () => {
+    const prisma = createPrisma();
+    prisma.product.findUnique.mockResolvedValue({
+      id: 'product-1',
+      sellerId: 'seller-1',
+      seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: null,
+      reviews: [],
+      purchases: [],
+    });
+    const service = new ProductsService(prisma as never);
+
+    await expect(
+      service.confirmBought('owner-user', { productId: 'product-1' }),
+    ).rejects.toBeInstanceOf(ForbiddenException);
+  });
+
+  it('allows a buyer to confirm receipt once', async () => {
+    const prisma = createPrisma();
+    prisma.product.findUnique.mockResolvedValue({
+      id: 'product-1',
+      sellerId: 'seller-1',
+      seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: null,
+      reviews: [],
+      purchases: [],
+    });
+    prisma.purchase.findUnique.mockResolvedValue(null);
+    prisma.purchase.upsert.mockResolvedValue({ id: 'purchase-1' });
+    const service = new ProductsService(prisma as never);
+
+    await expect(
+      service.confirmBought('buyer-user', { productId: 'product-1' }),
+    ).resolves.toEqual({ id: 'purchase-1' });
+  });
+
+  it('blocks duplicate buyer receipt acknowledgements', async () => {
+    const prisma = createPrisma();
+    prisma.product.findUnique.mockResolvedValue({
+      id: 'product-1',
+      sellerId: 'seller-1',
+      seller: { userId: 'owner-user' },
+      sellerMarkedSoldAt: null,
+      reviews: [],
+      purchases: [],
+    });
+    prisma.purchase.findUnique.mockResolvedValue({
+      id: 'purchase-1',
+      buyerConfirmedAt: new Date(),
+    });
+    const service = new ProductsService(prisma as never);
+
+    await expect(
+      service.confirmBought('buyer-user', { productId: 'product-1' }),
+    ).rejects.toBeInstanceOf(ConflictException);
   });
 });

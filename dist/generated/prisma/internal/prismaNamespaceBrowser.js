@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.OtpCodeScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.BuyerReviewScalarFieldEnum = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.OtpCodeScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = require("@prisma/client/runtime/index-browser");
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -18,7 +18,8 @@ exports.ModelName = {
     Product: 'Product',
     Purchase: 'Purchase',
     SellerReview: 'SellerReview',
-    ProductReview: 'ProductReview'
+    ProductReview: 'ProductReview',
+    BuyerReview: 'BuyerReview'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -73,7 +74,8 @@ exports.ProductScalarFieldEnum = {
     category: 'category',
     latitude: 'latitude',
     longitude: 'longitude',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    sellerMarkedSoldAt: 'sellerMarkedSoldAt'
 };
 exports.PurchaseScalarFieldEnum = {
     id: 'id',
@@ -98,6 +100,15 @@ exports.ProductReviewScalarFieldEnum = {
     userId: 'userId',
     productId: 'productId',
     sellerId: 'sellerId',
+    rating: 'rating',
+    comment: 'comment',
+    createdAt: 'createdAt'
+};
+exports.BuyerReviewScalarFieldEnum = {
+    id: 'id',
+    reviewerId: 'reviewerId',
+    buyerId: 'buyerId',
+    productId: 'productId',
     rating: 'rating',
     comment: 'comment',
     createdAt: 'createdAt'

@@ -164,6 +164,7 @@ export declare const ModelName: {
     readonly Purchase: "Purchase";
     readonly SellerReview: "SellerReview";
     readonly ProductReview: "ProductReview";
+    readonly BuyerReview: "BuyerReview";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -176,7 +177,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "otpCode" | "seller" | "product" | "purchase" | "sellerReview" | "productReview";
+        modelProps: "user" | "otpCode" | "seller" | "product" | "purchase" | "sellerReview" | "productReview" | "buyerReview";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -698,6 +699,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        BuyerReview: {
+            payload: Prisma.$BuyerReviewPayload<ExtArgs>;
+            fields: Prisma.BuyerReviewFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.BuyerReviewFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.BuyerReviewFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                findFirst: {
+                    args: Prisma.BuyerReviewFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.BuyerReviewFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                findMany: {
+                    args: Prisma.BuyerReviewFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>[];
+                };
+                create: {
+                    args: Prisma.BuyerReviewCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                createMany: {
+                    args: Prisma.BuyerReviewCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.BuyerReviewCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>[];
+                };
+                delete: {
+                    args: Prisma.BuyerReviewDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                update: {
+                    args: Prisma.BuyerReviewUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.BuyerReviewDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.BuyerReviewUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.BuyerReviewUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>[];
+                };
+                upsert: {
+                    args: Prisma.BuyerReviewUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$BuyerReviewPayload>;
+                };
+                aggregate: {
+                    args: Prisma.BuyerReviewAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateBuyerReview>;
+                };
+                groupBy: {
+                    args: Prisma.BuyerReviewGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.BuyerReviewGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.BuyerReviewCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.BuyerReviewCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -780,6 +855,7 @@ export declare const ProductScalarFieldEnum: {
     readonly latitude: "latitude";
     readonly longitude: "longitude";
     readonly createdAt: "createdAt";
+    readonly sellerMarkedSoldAt: "sellerMarkedSoldAt";
 };
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum];
 export declare const PurchaseScalarFieldEnum: {
@@ -812,6 +888,16 @@ export declare const ProductReviewScalarFieldEnum: {
     readonly createdAt: "createdAt";
 };
 export type ProductReviewScalarFieldEnum = (typeof ProductReviewScalarFieldEnum)[keyof typeof ProductReviewScalarFieldEnum];
+export declare const BuyerReviewScalarFieldEnum: {
+    readonly id: "id";
+    readonly reviewerId: "reviewerId";
+    readonly buyerId: "buyerId";
+    readonly productId: "productId";
+    readonly rating: "rating";
+    readonly comment: "comment";
+    readonly createdAt: "createdAt";
+};
+export type BuyerReviewScalarFieldEnum = (typeof BuyerReviewScalarFieldEnum)[keyof typeof BuyerReviewScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -867,6 +953,7 @@ export type GlobalOmitConfig = {
     purchase?: Prisma.PurchaseOmit;
     sellerReview?: Prisma.SellerReviewOmit;
     productReview?: Prisma.ProductReviewOmit;
+    buyerReview?: Prisma.BuyerReviewOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

@@ -13,3 +13,5 @@ export type Product = Prisma.ProductModel;
 export type Purchase = Prisma.PurchaseModel;
 export type SellerReview = Prisma.SellerReviewModel;
 export type ProductReview = Prisma.ProductReviewModel;
+export type BuyerReview = Prisma.BuyerReviewModel;
+export type SupportTicket = Prisma.SupportTicketModel;

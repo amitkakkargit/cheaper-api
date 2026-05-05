@@ -25,8 +25,8 @@ let ProductReviewsController = class ProductReviewsController {
     create(user, createProductReviewDto) {
         return this.reviewsService.createProductReview(user.userId, createProductReviewDto);
     }
-    findByProduct(productId, user) {
-        return this.reviewsService.findProductReviews(productId, user?.userId);
+    findByProduct(productId) {
+        return this.reviewsService.findProductReviews(productId);
     }
 };
 exports.ProductReviewsController = ProductReviewsController;
@@ -42,9 +42,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':productId'),
     __param(0, (0, common_1.Param)('productId')),
-    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ProductReviewsController.prototype, "findByProduct", null);
 exports.ProductReviewsController = ProductReviewsController = __decorate([

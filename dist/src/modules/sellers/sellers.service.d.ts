@@ -82,6 +82,7 @@ export declare class SellersService {
             discountPercentage: number;
             condition: string;
             category: string;
+            sellerMarkedSoldAt: Date | null;
         }[];
         reviews: {
             id: string;
