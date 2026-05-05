@@ -68,6 +68,26 @@ function ratingToInt(score: number): number {
   return Math.min(5, Math.max(1, Math.round(score)));
 }
 
+function safeVideoUrl(videoUrl: string): string {
+  if (videoUrl.includes('commondatastorage.googleapis.com')) {
+    return '';
+  }
+
+  return videoUrl;
+}
+
+function safeImageUrl(imageUrl: string): string {
+  if (imageUrl.includes('fakeimg.pl')) {
+    return '';
+  }
+
+  return imageUrl;
+}
+
+function safeImages(images?: string[]): string[] {
+  return (images ?? []).filter((image) => !image.includes('fakeimg.pl'));
+}
+
 async function main(): Promise<void> {
   const sellers = readJson<JsonSeller[]>('sellers.json');
   const products = readJson<JsonProduct[]>('products.json');
@@ -75,12 +95,11 @@ async function main(): Promise<void> {
   const productRatings = readJson<JsonRating[]>('productRatings.json');
 
   const buyer = await prisma.user.upsert({
-    where: { email: 'buyer@example.com' },
+    where: { email: 'seeded-reviewer@cheaper.local' },
     update: {},
     create: {
-      email: 'buyer@example.com',
-      name: 'Sample Buyer',
-      phone: '+15550001001',
+      email: 'seeded-reviewer@cheaper.local',
+      name: 'Seeded Reviewer',
     },
   });
 
@@ -132,9 +151,9 @@ async function main(): Promise<void> {
           name: product.title,
           title: product.title,
           description: product.description,
-          imageUrl: product.imageUrl,
-          images: product.images ?? [],
-          videoUrl: product.videoUrl,
+          imageUrl: safeImageUrl(product.imageUrl),
+          images: safeImages(product.images),
+          videoUrl: safeVideoUrl(product.videoUrl),
           videoStory: product.videoStory ?? '',
           currentPrice: product.currentPrice,
           previousPrice: product.previousPrice,
@@ -150,9 +169,9 @@ async function main(): Promise<void> {
           name: product.title,
           title: product.title,
           description: product.description,
-          imageUrl: product.imageUrl,
-          images: product.images ?? [],
-          videoUrl: product.videoUrl,
+          imageUrl: safeImageUrl(product.imageUrl),
+          images: safeImages(product.images),
+          videoUrl: safeVideoUrl(product.videoUrl),
           videoStory: product.videoStory ?? '',
           currentPrice: product.currentPrice,
           previousPrice: product.previousPrice,

@@ -26,18 +26,32 @@ function locationToCoordinates(location) {
 function ratingToInt(score) {
     return Math.min(5, Math.max(1, Math.round(score)));
 }
+function safeVideoUrl(videoUrl) {
+    if (videoUrl.includes('commondatastorage.googleapis.com')) {
+        return '';
+    }
+    return videoUrl;
+}
+function safeImageUrl(imageUrl) {
+    if (imageUrl.includes('fakeimg.pl')) {
+        return '';
+    }
+    return imageUrl;
+}
+function safeImages(images) {
+    return (images ?? []).filter((image) => !image.includes('fakeimg.pl'));
+}
 async function main() {
     const sellers = readJson('sellers.json');
     const products = readJson('products.json');
     const sellerRatings = readJson('sellerRatings.json');
     const productRatings = readJson('productRatings.json');
     const buyer = await prisma.user.upsert({
-        where: { email: 'buyer@example.com' },
+        where: { email: 'seeded-reviewer@cheaper.local' },
         update: {},
         create: {
-            email: 'buyer@example.com',
-            name: 'Sample Buyer',
-            phone: '+15550001001',
+            email: 'seeded-reviewer@cheaper.local',
+            name: 'Seeded Reviewer',
         },
     });
     await Promise.all(sellers.map(async (seller) => {
@@ -82,9 +96,9 @@ async function main() {
                 name: product.title,
                 title: product.title,
                 description: product.description,
-                imageUrl: product.imageUrl,
-                images: product.images ?? [],
-                videoUrl: product.videoUrl,
+                imageUrl: safeImageUrl(product.imageUrl),
+                images: safeImages(product.images),
+                videoUrl: safeVideoUrl(product.videoUrl),
                 videoStory: product.videoStory ?? '',
                 currentPrice: product.currentPrice,
                 previousPrice: product.previousPrice,
@@ -100,9 +114,9 @@ async function main() {
                 name: product.title,
                 title: product.title,
                 description: product.description,
-                imageUrl: product.imageUrl,
-                images: product.images ?? [],
-                videoUrl: product.videoUrl,
+                imageUrl: safeImageUrl(product.imageUrl),
+                images: safeImages(product.images),
+                videoUrl: safeVideoUrl(product.videoUrl),
                 videoStory: product.videoStory ?? '',
                 currentPrice: product.currentPrice,
                 previousPrice: product.previousPrice,

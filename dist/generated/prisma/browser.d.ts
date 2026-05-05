@@ -3,6 +3,7 @@ export { Prisma };
 export * as $Enums from './enums';
 export * from './enums';
 export type User = Prisma.UserModel;
+export type OtpCode = Prisma.OtpCodeModel;
 export type Seller = Prisma.SellerModel;
 export type Product = Prisma.ProductModel;
 export type Purchase = Prisma.PurchaseModel;

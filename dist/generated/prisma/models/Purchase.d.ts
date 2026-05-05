@@ -341,9 +341,6 @@ export type PurchaseUncheckedUpdateManyWithoutProductNestedInput = {
     updateMany?: Prisma.PurchaseUpdateManyWithWhereWithoutProductInput | Prisma.PurchaseUpdateManyWithWhereWithoutProductInput[];
     deleteMany?: Prisma.PurchaseScalarWhereInput | Prisma.PurchaseScalarWhereInput[];
 };
-export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null;
-};
 export type PurchaseCreateWithoutBuyerInput = {
     id?: string;
     sellerId: string;

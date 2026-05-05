@@ -18,7 +18,9 @@ const current_user_decorator_1 = require("../../common/decorators/current-user.d
 const jwt_auth_guard_1 = require("../../common/guards/jwt-auth.guard");
 const auth_service_1 = require("./auth.service");
 const google_auth_dto_1 = require("./dto/google-auth.dto");
+const request_email_otp_dto_1 = require("./dto/request-email-otp.dto");
 const request_otp_dto_1 = require("./dto/request-otp.dto");
+const verify_email_otp_dto_1 = require("./dto/verify-email-otp.dto");
 const verify_otp_dto_1 = require("./dto/verify-otp.dto");
 let AuthController = class AuthController {
     constructor(authService) {
@@ -32,6 +34,12 @@ let AuthController = class AuthController {
     }
     verifyPhoneOtp(verifyOtpDto) {
         return this.authService.verifyPhoneOtp(verifyOtpDto.phone, verifyOtpDto.otp);
+    }
+    requestEmailOtp(requestEmailOtpDto) {
+        return this.authService.requestEmailOtp(requestEmailOtpDto.email);
+    }
+    verifyEmailOtp(verifyEmailOtpDto) {
+        return this.authService.verifyEmailOtp(verifyEmailOtpDto.email, verifyEmailOtpDto.otp);
     }
     me(user) {
         return this.authService.getCurrentUser(user.userId);
@@ -59,6 +67,20 @@ __decorate([
     __metadata("design:paramtypes", [verify_otp_dto_1.VerifyOtpDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "verifyPhoneOtp", null);
+__decorate([
+    (0, common_1.Post)('email/request-otp'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [request_email_otp_dto_1.RequestEmailOtpDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "requestEmailOtp", null);
+__decorate([
+    (0, common_1.Post)('email/verify-otp'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [verify_email_otp_dto_1.VerifyEmailOtpDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyEmailOtp", null);
 __decorate([
     (0, common_1.Get)('me'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

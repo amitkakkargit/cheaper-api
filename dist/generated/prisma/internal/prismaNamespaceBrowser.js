@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.NullsOrder = exports.QueryMode = exports.SortOrder = exports.ProductReviewScalarFieldEnum = exports.SellerReviewScalarFieldEnum = exports.PurchaseScalarFieldEnum = exports.ProductScalarFieldEnum = exports.SellerScalarFieldEnum = exports.OtpCodeScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = require("@prisma/client/runtime/index-browser");
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -13,6 +13,7 @@ exports.JsonNull = runtime.JsonNull;
 exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     User: 'User',
+    OtpCode: 'OtpCode',
     Seller: 'Seller',
     Product: 'Product',
     Purchase: 'Purchase',
@@ -30,7 +31,18 @@ exports.UserScalarFieldEnum = {
     email: 'email',
     phone: 'phone',
     name: 'name',
+    avatarUrl: 'avatarUrl',
     createdAt: 'createdAt'
+};
+exports.OtpCodeScalarFieldEnum = {
+    id: 'id',
+    channel: 'channel',
+    target: 'target',
+    code: 'code',
+    expiresAt: 'expiresAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt',
+    userId: 'userId'
 };
 exports.SellerScalarFieldEnum = {
     id: 'id',

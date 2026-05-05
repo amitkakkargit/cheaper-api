@@ -12,11 +12,27 @@ model User {
   email          String?         @unique
   phone          String?         @unique
   name           String?
+  avatarUrl      String?
   createdAt      DateTime        @default(now())
+  otpCodes       OtpCode[]
   sellers        Seller[]
   purchases      Purchase[]
   sellerReviews  SellerReview[]
   productReviews ProductReview[]
+}
+
+model OtpCode {
+  id        String    @id @default(uuid())
+  channel   String
+  target    String
+  code      String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
+
+  @@index([target, channel])
 }
 
 model Seller {

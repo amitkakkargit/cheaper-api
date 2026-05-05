@@ -10,11 +10,11 @@ export declare class ProductsController {
         seller: {
             id: string;
             name: string;
+            avatarUrl: string;
             createdAt: Date;
             userId: string;
             location: string;
             bio: string;
-            avatarUrl: string;
             latitude: number;
             longitude: number;
         };
@@ -61,11 +61,11 @@ export declare class ProductsController {
         } & {
             id: string;
             name: string;
+            avatarUrl: string;
             createdAt: Date;
             userId: string;
             location: string;
             bio: string;
-            avatarUrl: string;
             latitude: number;
             longitude: number;
         };
@@ -111,11 +111,11 @@ export declare class ProductsController {
         seller: {
             id: string;
             name: string;
+            avatarUrl: string;
             createdAt: Date;
             userId: string;
             location: string;
             bio: string;
-            avatarUrl: string;
             latitude: number;
             longitude: number;
         };
@@ -174,6 +174,7 @@ export declare class ProductsController {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
     } & {
@@ -211,6 +212,7 @@ export declare class ProductsController {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
     } & {

@@ -25,7 +25,10 @@ export class SellerReviewsController {
   }
 
   @Get(':sellerId')
-  findBySeller(@Param('sellerId') sellerId: string) {
-    return this.reviewsService.findSellerReviews(sellerId);
+  findBySeller(
+    @Param('sellerId') sellerId: string,
+    @CurrentUserPayload() user?: CurrentUser,
+  ) {
+    return this.reviewsService.findSellerReviews(sellerId, user?.userId);
   }
 }

@@ -37,6 +37,8 @@ npm run db:seed
 npm run start:dev
 ```
 
+The API runs on `http://localhost:3001`. The frontend runs on `http://localhost:3000`.
+
 ## Auth
 
 Mock Google auth accepts any non-empty `idToken`. If the token contains `@`, it is treated as the email; otherwise a mock Google email is generated.

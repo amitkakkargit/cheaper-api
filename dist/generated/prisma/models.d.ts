@@ -1,4 +1,5 @@
 export type * from './models/User';
+export type * from './models/OtpCode';
 export type * from './models/Seller';
 export type * from './models/Product';
 export type * from './models/Purchase';

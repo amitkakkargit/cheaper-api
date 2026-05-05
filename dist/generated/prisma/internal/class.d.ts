@@ -33,6 +33,9 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get user(): Prisma.UserDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get otpCode(): Prisma.OtpCodeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get seller(): Prisma.SellerDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;

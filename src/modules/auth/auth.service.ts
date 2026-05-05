@@ -5,14 +5,16 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+import { PrismaService } from '../../prisma/prisma.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
-  private readonly otpStore = new Map<string, string>();
+  private readonly otpTtlMs = 60_000;
 
   constructor(
     private readonly jwtService: JwtService,
+    private readonly prisma: PrismaService,
     private readonly usersService: UsersService,
   ) {}
 
@@ -29,28 +31,45 @@ export class AuthService {
     };
   }
 
-  requestPhoneOtp(phone: string) {
+  async requestPhoneOtp(phone: string) {
     this.assertPhone(phone);
 
-    const otp = '123456';
-    this.otpStore.set(phone, otp);
+    const otp = await this.createOtp('phone', phone);
 
     return {
       phone,
       otp,
+      expiresInSeconds: 60,
     };
   }
 
   async verifyPhoneOtp(phone: string, otp: string) {
     this.assertPhone(phone);
-
-    if (this.otpStore.get(phone) !== otp) {
-      throw new UnauthorizedException('Invalid OTP');
-    }
-
-    this.otpStore.delete(phone);
+    await this.verifyOtp('phone', phone, otp);
 
     const user = await this.usersService.findOrCreateByPhone(phone);
+
+    return {
+      accessToken: await this.createJwt(user),
+      user,
+    };
+  }
+
+  async requestEmailOtp(email: string) {
+    const otp = await this.createOtp('email', email.toLowerCase());
+
+    return {
+      email,
+      otp,
+      expiresInSeconds: 60,
+    };
+  }
+
+  async verifyEmailOtp(email: string, otp: string) {
+    const normalizedEmail = email.toLowerCase();
+    await this.verifyOtp('email', normalizedEmail, otp);
+
+    const user = await this.usersService.findOrCreateByEmail(normalizedEmail);
 
     return {
       accessToken: await this.createJwt(user),
@@ -93,5 +112,55 @@ export class AuthService {
     if (!phone) {
       throw new BadRequestException('Phone number is required');
     }
+  }
+
+  private async createOtp(channel: 'email' | 'phone', target: string) {
+    const code = this.generateOtp();
+
+    await this.prisma.otpCode.create({
+      data: {
+        channel,
+        target,
+        code,
+        expiresAt: new Date(Date.now() + this.otpTtlMs),
+      },
+    });
+
+    return code;
+  }
+
+  private async verifyOtp(
+    channel: 'email' | 'phone',
+    target: string,
+    code: string,
+  ) {
+    const otpCode = await this.prisma.otpCode.findFirst({
+      where: {
+        channel,
+        target,
+        code,
+        usedAt: null,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    if (!otpCode || otpCode.expiresAt.getTime() < Date.now()) {
+      throw new UnauthorizedException('Invalid or expired OTP');
+    }
+
+    await this.prisma.otpCode.update({
+      where: {
+        id: otpCode.id,
+      },
+      data: {
+        usedAt: new Date(),
+      },
+    });
+  }
+
+  private generateOtp(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString();
   }
 }

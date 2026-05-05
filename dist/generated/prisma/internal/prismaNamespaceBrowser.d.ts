@@ -12,6 +12,7 @@ export declare const JsonNull: import("@prisma/client-runtime-utils").JsonNullCl
 export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClass;
 export declare const ModelName: {
     readonly User: "User";
+    readonly OtpCode: "OtpCode";
     readonly Seller: "Seller";
     readonly Product: "Product";
     readonly Purchase: "Purchase";
@@ -31,9 +32,21 @@ export declare const UserScalarFieldEnum: {
     readonly email: "email";
     readonly phone: "phone";
     readonly name: "name";
+    readonly avatarUrl: "avatarUrl";
     readonly createdAt: "createdAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const OtpCodeScalarFieldEnum: {
+    readonly id: "id";
+    readonly channel: "channel";
+    readonly target: "target";
+    readonly code: "code";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+    readonly userId: "userId";
+};
+export type OtpCodeScalarFieldEnum = (typeof OtpCodeScalarFieldEnum)[keyof typeof OtpCodeScalarFieldEnum];
 export declare const SellerScalarFieldEnum: {
     readonly id: "id";
     readonly userId: "userId";

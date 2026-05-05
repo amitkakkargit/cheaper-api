@@ -9,16 +9,17 @@ export declare class SellersService {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
     } & {
         id: string;
         name: string;
+        avatarUrl: string;
         createdAt: Date;
         userId: string;
         location: string;
         bio: string;
-        avatarUrl: string;
         latitude: number;
         longitude: number;
     }, never, import("@prisma/client/runtime/client").DefaultArgs, {
@@ -30,6 +31,7 @@ export declare class SellersService {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
         reviews: {
@@ -44,11 +46,11 @@ export declare class SellersService {
     } & {
         id: string;
         name: string;
+        avatarUrl: string;
         createdAt: Date;
         userId: string;
         location: string;
         bio: string;
-        avatarUrl: string;
         latitude: number;
         longitude: number;
     })[]>;
@@ -58,6 +60,7 @@ export declare class SellersService {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
         products: {
@@ -92,11 +95,11 @@ export declare class SellersService {
     } & {
         id: string;
         name: string;
+        avatarUrl: string;
         createdAt: Date;
         userId: string;
         location: string;
         bio: string;
-        avatarUrl: string;
         latitude: number;
         longitude: number;
     }>;

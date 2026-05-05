@@ -14,10 +14,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = context.getResponse<Response>();
     const request = context.getRequest<Request>();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    const status = this.getStatus(exception);
     const errorResponse =
       exception instanceof HttpException ? exception.getResponse() : undefined;
 
@@ -47,5 +44,31 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     }
 
     return 'Internal server error';
+  }
+
+  private getStatus(exception: unknown): number {
+    if (exception instanceof HttpException) {
+      return exception.getStatus();
+    }
+
+    if (
+      exception &&
+      typeof exception === 'object' &&
+      'status' in exception &&
+      typeof exception.status === 'number'
+    ) {
+      return exception.status;
+    }
+
+    if (
+      exception &&
+      typeof exception === 'object' &&
+      'statusCode' in exception &&
+      typeof exception.statusCode === 'number'
+    ) {
+      return exception.statusCode;
+    }
+
+    return HttpStatus.INTERNAL_SERVER_ERROR;
   }
 }

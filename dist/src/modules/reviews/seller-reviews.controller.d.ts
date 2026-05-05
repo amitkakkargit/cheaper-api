@@ -10,16 +10,17 @@ export declare class SellerReviewsController {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
         seller: {
             id: string;
             name: string;
+            avatarUrl: string;
             createdAt: Date;
             userId: string;
             location: string;
             bio: string;
-            avatarUrl: string;
             latitude: number;
             longitude: number;
         };
@@ -32,21 +33,5 @@ export declare class SellerReviewsController {
         rating: number;
         comment: string | null;
     }>;
-    findBySeller(sellerId: string): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<({
-        user: {
-            id: string;
-            email: string | null;
-            phone: string | null;
-            name: string | null;
-            createdAt: Date;
-        };
-    } & {
-        id: string;
-        createdAt: Date;
-        userId: string;
-        sellerId: string;
-        productId: string | null;
-        rating: number;
-        comment: string | null;
-    })[]>;
+    findBySeller(sellerId: string, user?: CurrentUser): Promise<any[]>;
 }

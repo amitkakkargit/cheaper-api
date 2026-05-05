@@ -19,6 +19,13 @@ let UsersService = class UsersService {
     async findById(id) {
         const user = await this.prisma.user.findUnique({
             where: { id },
+            include: {
+                sellers: {
+                    select: {
+                        id: true,
+                    },
+                },
+            },
         });
         if (!user) {
             throw new common_1.NotFoundException('User not found');
@@ -49,6 +56,19 @@ let UsersService = class UsersService {
         return this.prisma.user.create({
             data: {
                 phone,
+            },
+        });
+    }
+    updateProfile(id, updateProfileDto) {
+        return this.prisma.user.update({
+            where: { id },
+            data: updateProfileDto,
+            include: {
+                sellers: {
+                    select: {
+                        id: true,
+                    },
+                },
             },
         });
     }

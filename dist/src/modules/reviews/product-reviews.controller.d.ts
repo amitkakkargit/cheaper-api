@@ -10,6 +10,7 @@ export declare class ProductReviewsController {
             email: string | null;
             phone: string | null;
             name: string | null;
+            avatarUrl: string | null;
             createdAt: Date;
         };
         product: {
@@ -41,21 +42,5 @@ export declare class ProductReviewsController {
         rating: number;
         comment: string | null;
     }>;
-    findByProduct(productId: string): import("../../../generated/prisma/internal/prismaNamespace").PrismaPromise<({
-        user: {
-            id: string;
-            email: string | null;
-            phone: string | null;
-            name: string | null;
-            createdAt: Date;
-        };
-    } & {
-        id: string;
-        createdAt: Date;
-        userId: string;
-        sellerId: string | null;
-        productId: string;
-        rating: number;
-        comment: string | null;
-    })[]>;
+    findByProduct(productId: string, user?: CurrentUser): Promise<any[]>;
 }

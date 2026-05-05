@@ -158,6 +158,7 @@ export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>;
 export declare const ModelName: {
     readonly User: "User";
+    readonly OtpCode: "OtpCode";
     readonly Seller: "Seller";
     readonly Product: "Product";
     readonly Purchase: "Purchase";
@@ -175,7 +176,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "seller" | "product" | "purchase" | "sellerReview" | "productReview";
+        modelProps: "user" | "otpCode" | "seller" | "product" | "purchase" | "sellerReview" | "productReview";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -250,6 +251,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 count: {
                     args: Prisma.UserCountArgs<ExtArgs>;
                     result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number;
+                };
+            };
+        };
+        OtpCode: {
+            payload: Prisma.$OtpCodePayload<ExtArgs>;
+            fields: Prisma.OtpCodeFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.OtpCodeFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.OtpCodeFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                findFirst: {
+                    args: Prisma.OtpCodeFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.OtpCodeFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                findMany: {
+                    args: Prisma.OtpCodeFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>[];
+                };
+                create: {
+                    args: Prisma.OtpCodeCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                createMany: {
+                    args: Prisma.OtpCodeCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                createManyAndReturn: {
+                    args: Prisma.OtpCodeCreateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>[];
+                };
+                delete: {
+                    args: Prisma.OtpCodeDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                update: {
+                    args: Prisma.OtpCodeUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                deleteMany: {
+                    args: Prisma.OtpCodeDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.OtpCodeUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateManyAndReturn: {
+                    args: Prisma.OtpCodeUpdateManyAndReturnArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>[];
+                };
+                upsert: {
+                    args: Prisma.OtpCodeUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$OtpCodePayload>;
+                };
+                aggregate: {
+                    args: Prisma.OtpCodeAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateOtpCode>;
+                };
+                groupBy: {
+                    args: Prisma.OtpCodeGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OtpCodeGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.OtpCodeCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.OtpCodeCountAggregateOutputType> | number;
                 };
             };
         };
@@ -659,9 +734,21 @@ export declare const UserScalarFieldEnum: {
     readonly email: "email";
     readonly phone: "phone";
     readonly name: "name";
+    readonly avatarUrl: "avatarUrl";
     readonly createdAt: "createdAt";
 };
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const OtpCodeScalarFieldEnum: {
+    readonly id: "id";
+    readonly channel: "channel";
+    readonly target: "target";
+    readonly code: "code";
+    readonly expiresAt: "expiresAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+    readonly userId: "userId";
+};
+export type OtpCodeScalarFieldEnum = (typeof OtpCodeScalarFieldEnum)[keyof typeof OtpCodeScalarFieldEnum];
 export declare const SellerScalarFieldEnum: {
     readonly id: "id";
     readonly userId: "userId";
@@ -774,6 +861,7 @@ export type PrismaClientOptions = ({
 };
 export type GlobalOmitConfig = {
     user?: Prisma.UserOmit;
+    otpCode?: Prisma.OtpCodeOmit;
     seller?: Prisma.SellerOmit;
     product?: Prisma.ProductOmit;
     purchase?: Prisma.PurchaseOmit;
